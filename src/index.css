@@ -1,4 +1,5 @@
 @import url("normalize.css");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 html,
 body {
@@ -13,13 +14,14 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 :root {
-  --primary-bg-white: #fcf5f3;
+  --primary-bg-white: #fafaee;
   --primary-brown: #622828;
-  --primary-green: #199570;
+  --primary-green: #2c5838;
+  --secondary-green: #39784d;
   --primary-blue: #24abc2;
   --btn-radius: 25px;
   --h1-font-size-desktop: 2.2rem;

@@ -21,9 +21,8 @@ Navbar
     left: 0;
     z-index: 11;
     padding: 3px 2vw;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: var(--primary-green);
     backdrop-filter: blur(4px);
-    border-bottom: 2px solid #f1f1f1;
   }
 
   .navbar-opacity {
@@ -32,7 +31,7 @@ Navbar
 
   .logo {
     margin-top: -3px;
-    width: 70px;
+    width: 200px;
   }
 
   .links-container {
@@ -45,9 +44,9 @@ Navbar
     display: block;
     text-decoration: none;
     text-transform: capitalize;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1.2rem;
-    color: black;
+    color: var(--primary-bg-white);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
   }
@@ -66,7 +65,7 @@ Navbar
     background-color: transparent;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    color: var(--primary-green);
+    color: var(--primary-bg-white);
     padding: 10px 0px 0 0;
   }
 
@@ -83,12 +82,16 @@ Navbar
 
   .navbar-btn a {
     display: block;
-    background-color: var(--primary-green);
+    border: 2px solid var(--primary-bg-white);
     border-radius: var(--btn-radius);
-    padding: 10px 10px;
+    padding: 10px 20px;
     color: white;
   }
 
+  .navbar-btn a:hover {
+    color: darkgray;
+    border-color: darkgray;
+  }
   .links {
     list-style: none;
     display: flex;
@@ -101,7 +104,7 @@ Navbar
   }
 
   .links a:hover {
-    color: var(--primary-green);
+    color: darkgray;
   }
 
   .links a:focus {
@@ -122,7 +125,7 @@ Navbar
     }
 
     .logo {
-      width: 90px;
+      width: 200px;
     }
 
     .links-container {
@@ -163,7 +166,7 @@ Navbar
 `;
 const Submenu = styled.div`
   position: absolute;
-  background-color: red;
+  background-color: var(--primary-green);
   display: none;
   align-items: center;
   justify-content: center;
@@ -248,11 +251,7 @@ function Navbar() {
       <nav className={"navbar"}>
         <div className="navbar-header">
           <a href="#">
-            <img
-              src="\images\hero\janepet-logo.png"
-              alt="logo"
-              className="logo"
-            />
+            <img src="logo.png" alt="logo" className="logo" />
           </a>
           <button
             onClick={toggleLinks}
