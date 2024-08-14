@@ -1,0 +1,26 @@
+@import url("normalize.css");
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: var(--primary-bg-white);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+:root {
+  --primary-bg-white: #fcf5f3;
+  --primary-brown: #622828;
+  --primary-green: #199570;
+  --primary-blue: #24abc2;
+  --btn-radius: 25px;
+  --h1-font-size-desktop: 2.2rem;
+  --h2-font-size-desktop: 1.3rem;
+  --p-font-size-desktop: 1.3rem;
+}
