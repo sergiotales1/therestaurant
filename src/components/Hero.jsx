@@ -24,7 +24,6 @@ const HeroWrapper = styled.section`
 
   .hero-text {
     color: var(--primary-bg-white);
-    border: 1px solid red;
     padding: 1rem;
   }
 
@@ -75,14 +74,13 @@ const HeroWrapper = styled.section`
       grid-template-columns: 600px 1fr;
       margin-top: 4rem;
       max-width: 1500px;
-      gap: 8rem;
+      gap: 6rem;
     }
 
     .hero-text {
       grid-column: 1;
       grid-row: 1;
       color: var(--primary-bg-white);
-      border: 1px solid red;
       padding: 1rem;
     }
 
@@ -93,7 +91,7 @@ const HeroWrapper = styled.section`
 
     .hero-title {
       padding: 0;
-      margin: 0.3rem 0 2rem 0;
+      margin: 0.6rem 0 2rem 0;
       font-weight: 500;
       font-size: 3.6rem;
       text-transform: uppercase;
@@ -107,6 +105,7 @@ const HeroWrapper = styled.section`
     .hero-btn {
       color: var(--primary-bg-white);
       border: 2px solid var(--primary-bg-white);
+      cursor: pointer;
       background-color: transparent;
       padding: 0.5rem;
       display: flex;
@@ -114,6 +113,12 @@ const HeroWrapper = styled.section`
       justify-content: center;
       gap: 1rem;
       font-size: 1.5rem;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hero-btn:hover {
+      color: darkgray;
+      border-color: darkgray;
     }
 
     .hero-btn-icon {
@@ -128,7 +133,7 @@ function Hero() {
         {/* NOTE: Slider being formatted using styled components as well! */}
         <SimpleSlider className="slider" />
         <div className="hero-text">
-          <p className="hero-over-title">Lorem ipsum dolor sit amet</p>
+          <p className="hero-over-title">Sabores que encantam</p>
           <h1 className="hero-title">Prazer, somos o restaurant!</h1>
           <p className="hero-under-title">
             Venha descobrir sabores que contam histórias e deixe-se levar por

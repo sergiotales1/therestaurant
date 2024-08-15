@@ -40,35 +40,35 @@ const SliderWrapper = styled.div`
   @media (min-width: 800px) {
     .slider-container {
       background: url("/hero-assets/hero-frame.png");
-      background-size: contain;
+      background-size: cover;
 
-      width: 250px;
-      height: 200px;
-    }
+      width: 660px;
+      height: 530px;
+      padding: 0 50px;
+      div.slick-slide {
+        width: 650px;
+        height: 530px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      img {
+        width: 500px;
+      }
 
-    div.slick-slide {
-      width: 250px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    img {
-      width: 200px;
-    }
+      .slick-dots {
+        bottom: 50px;
+      }
+      .slick-dots li button:before {
+        content: "-";
+        color: white;
+        font-size: 4.5rem;
+      }
 
-    .slick-dots {
-      bottom: 20px;
-    }
-    .slick-dots li button:before {
-      content: "-";
-      color: white;
-      font-size: 4.5rem;
-    }
-
-    .slick-arrow.slick-next::before,
-    .slick-arrow.slick-prev::before {
-      display: none;
+      .slick-arrow.slick-next::before,
+      .slick-arrow.slick-prev::before {
+        display: none;
+      }
     }
   }
 `;
@@ -77,12 +77,12 @@ export function SimpleSlider() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
 
-    // autoplay: true,
-    // autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 4500,
   };
   return (
     <SliderWrapper>

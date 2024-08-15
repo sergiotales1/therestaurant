@@ -172,8 +172,9 @@ const Submenu = styled.div`
   justify-content: center;
   flex-direction: column;
 
+  padding: 1rem;
   .submenu-icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
     display: block;
     margin: 0 auto;
   }
@@ -184,6 +185,7 @@ const Submenu = styled.div`
   }
 
   @media (min-width: 800px) {
+    padding: 0;
     a.submenu {
       padding: 1rem;
     }
