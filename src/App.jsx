@@ -1,18 +1,30 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import Navbar from "./components/Navbar";
-import Section1 from "./components/Section1";
-import Section2 from "./components/Section2";
+import Landing from "./pages/Landing";
+
+import HomeLayout from "./pages/HomeLayout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomeLayout />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/cardapio",
+        // element: <Cardapio />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Hero />
-      <Section1 />
-      <Section2 />
-      <Footer />
+      <RouterProvider router={router} />
     </>
   );
 }
