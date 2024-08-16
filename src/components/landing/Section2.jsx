@@ -207,7 +207,6 @@ function Section2() {
     };
 
     const imgObserver1 = new IntersectionObserver(myIntersectionCb1, options);
-    imgObserver1.observe(content1ImgRef.current);
 
     if (content1ImgRef.current) {
       imgObserver1.observe(content1ImgRef.current);
@@ -225,7 +224,6 @@ function Section2() {
     };
 
     const imgObserver2 = new IntersectionObserver(myIntersectionCb2, options2);
-    imgObserver2.observe(content2ImgRef.current);
 
     if (content2ImgRef.current) {
       imgObserver2.observe(content2ImgRef.current);

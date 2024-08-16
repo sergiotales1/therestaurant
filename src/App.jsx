@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
 import Landing from "./pages/Landing";
 
 import HomeLayout from "./pages/HomeLayout";
+import Drinks from "./pages/Drinks";
+import { fetchDrinks } from "./js/utils";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +15,9 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "/cardapio",
-        // element: <Cardapio />,
+        path: "/drinks",
+        element: <Drinks />,
+        loader: fetchDrinks,
       },
     ],
   },

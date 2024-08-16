@@ -5,6 +5,7 @@ import { FaUtensils } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { links } from "../js/data";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 // import { handleClick } from "../js/utils";
 
 const Wrapper = styled.section`
@@ -214,7 +215,6 @@ function Navbar() {
       e.target.parentElement.classList.contains("submenu") ||
       e.target.parentElement.classList.contains("submenu-icon")
     ) {
-      console.log(e.target.parentElement);
       return;
     }
     myRef.current.style.display = "none";
@@ -276,21 +276,21 @@ function Navbar() {
                 <li key={item.id}>
                   {item.text === "menu" ? (
                     <>
-                      <a
+                      <Link
                         onClick={(e) => handleClick(e, myRef)}
                         onMouseOver={(e) => handleClick(e, myRef)}
                         className="menu"
-                        href={item.url}
+                        to={item.url}
                       >
                         {item.text}
 
                         <IoMdArrowDropdown className="navbar-menu-icon" />
-                      </a>
+                      </Link>
                       <Submenu className="submenu" ref={myRef}>
-                        <a className="submenu" href="#">
+                        <Link className="submenu" to={"drinks"}>
                           <RiDrinks2Line className="submenu-icon" />
                           Drinks
-                        </a>
+                        </Link>
 
                         <a className="submenu" href="#">
                           <FaUtensils className="submenu-icon" />
