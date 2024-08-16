@@ -3,7 +3,8 @@ import Landing from "./pages/Landing";
 
 import HomeLayout from "./pages/HomeLayout";
 import Drinks from "./pages/Drinks";
-import { fetchDrinks } from "./js/utils";
+import Cardapio from "./pages/Cardapio";
+import { fetchDrinks, fetchPlates } from "./js/utils";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
         path: "/drinks",
         element: <Drinks />,
         loader: fetchDrinks,
+      },
+      {
+        path: "/cardapio",
+        element: <Cardapio />,
+        loader: fetchPlates,
       },
     ],
   },

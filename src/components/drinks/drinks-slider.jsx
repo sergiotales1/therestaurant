@@ -122,7 +122,7 @@ const SliderWrapper = styled.section`
   }
 `;
 
-function Responsive({ meals }) {
+function Responsive({ drinks }) {
   var settings = {
     dots: true,
     infinite: true,
@@ -144,13 +144,13 @@ function Responsive({ meals }) {
   };
   return (
     <SliderWrapper>
-      <h3 className="subtitle">Refeições</h3>
+      <h3 className="subtitle">Top Drinks</h3>
       <div className="slider-container">
         <Slider {...settings}>
-          {meals.map((meal) => {
+          {drinks.map((drink) => {
             return (
-              <div className="meal-img-container" key={meal.id}>
-                <img src={meal.img} alt={meal.name} className="meal-img" />
+              <div className="drink-img-container" key={drink.id}>
+                <img src={drink.img} alt={drink.name} className="drink-img" />
               </div>
             );
           })}

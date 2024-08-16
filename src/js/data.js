@@ -49,3 +49,34 @@ export const drinksDescPrice = [
     price: 35.0,
   },
 ];
+
+export const platesDescPrice = [
+  {
+    desc: "Vegetable couscous com legumes frescos e grão-de-bico.",
+    price: 18.0,
+  },
+  {
+    desc: "Vegan lasagna com tofu e molho de tomate.",
+    price: 22.0,
+  },
+  {
+    desc: "Vindaloo de frango com especiarias indianas intensas.",
+    price: 26.0,
+  },
+  {
+    desc: "Vitello Tonnato, vitela macia com molho de atum.",
+    price: 28.0,
+  },
+  {
+    desc: "Vegetable Pad Thai, macarrão tailandês com amendoim.",
+    price: 20.0,
+  },
+  {
+    desc: "Vichyssoise, sopa fria de alho-poró e batata.",
+    price: 16.0,
+  },
+  {
+    desc: "Vol-au-vent recheado com frango cremoso e cogumelos.",
+    price: 24.0,
+  },
+];

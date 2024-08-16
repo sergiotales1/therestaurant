@@ -252,7 +252,7 @@ function Navbar() {
     <Wrapper>
       <nav className={"navbar"}>
         <div className="navbar-header">
-          <a href="#">
+          <a href="/">
             <img src="logo.png" alt="logo" className="logo" />
           </a>
           <button
@@ -287,15 +287,19 @@ function Navbar() {
                         <IoMdArrowDropdown className="navbar-menu-icon" />
                       </Link>
                       <Submenu className="submenu" ref={myRef}>
-                        <Link className="submenu" to={"drinks"}>
+                        <Link
+                          preventScrollReset={false}
+                          className="submenu"
+                          to={"drinks"}
+                        >
                           <RiDrinks2Line className="submenu-icon" />
                           Drinks
                         </Link>
 
-                        <a className="submenu" href="#">
+                        <Link className="submenu" to={"cardapio"}>
                           <FaUtensils className="submenu-icon" />
                           Cardápio
-                        </a>
+                        </Link>
                       </Submenu>
                     </>
                   ) : (

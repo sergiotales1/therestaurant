@@ -1,10 +1,10 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
-import SingleDrink from "../components/drinks/SingleDrink";
-import DrinksCarousel from "../components/drinks/drinks-slider.jsx";
+import SinglePlate from "../components/cardapio/SinglePlate";
+import CardapioCarousel from "../components/cardapio/cardapio-slider.jsx";
 
-const DrinksWrapper = styled.section`
+const CardapioWrapper = styled.section`
   width: 100vw;
   height: auto;
   padding-top: 8rem;
@@ -37,20 +37,20 @@ const DrinksWrapper = styled.section`
     }
   }
 
-  .drinks-container {
+  .plates-container {
     padding: 0 2vw;
     margin-top: 2rem;
   }
 
-  .single-drink {
+  .single-meal {
     margin: 2rem 0;
   }
 
-  .drink-desc {
+  .meal-desc {
     margin: 0.5rem 0 1rem 0;
   }
 
-  .drink-price {
+  .meal-price {
     font-size: 1.2rem;
     font-weight: 500;
   }
@@ -90,7 +90,7 @@ const DrinksWrapper = styled.section`
       }
     }
 
-    .drinks-container {
+    .plates-container {
       padding: 0 2vw;
       margin-top: 2rem;
       display: grid;
@@ -98,47 +98,46 @@ const DrinksWrapper = styled.section`
       gap: 2rem 7rem;
     }
 
-    .single-drink {
+    .single-meal {
       margin: 2rem 0;
       max-width: 500px;
     }
 
-    .drink-title {
+    .meal-title {
       font-size: 1.7rem;
     }
 
-    .drink-desc {
+    .meal-desc {
       margin: 1.3rem 0 1.3rem 0;
       font-size: 1.3rem;
     }
 
-    .drink-price {
+    .meal-price {
       font-size: 1.7rem;
       font-weight: 500;
     }
   }
 `;
 
-function Drinks() {
-  const { drinks } = useLoaderData();
+function Cardapio() {
+  const { meals } = useLoaderData();
   return (
     <>
-      <DrinksWrapper>
+      <CardapioWrapper>
         <div className="title-container">
-          <h1 className="title">Drinks</h1>
-          <h2 className="subtitle">Se beber não dirija!</h2>
+          <h1 className="title">Cardápio</h1>
         </div>
-        <div className="drinks-container">
-          {drinks.map((drink) => {
-            return <SingleDrink drink={drink} key={drink.id} />;
+        <div className="plates-container">
+          {meals.map((meal) => {
+            return <SinglePlate meal={meal} key={meal.id} />;
           })}
         </div>
-      </DrinksWrapper>
+      </CardapioWrapper>
       <section className="drinks-carousel">
-        <DrinksCarousel drinks={drinks} />
+        <CardapioCarousel meals={meals} />
       </section>
     </>
   );
 }
 
-export default Drinks;
+export default Cardapio;
