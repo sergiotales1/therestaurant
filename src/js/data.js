@@ -13,12 +13,12 @@ export const links = [
 
   {
     id: 3,
-    url: "#",
+    url: "/reserva",
     text: "reserva ",
   },
   {
     id: 4,
-    url: "#",
+    url: "/sobre",
     text: "sobre",
   },
 ];
