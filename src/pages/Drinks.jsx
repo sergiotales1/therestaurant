@@ -9,7 +9,7 @@ const DrinksWrapper = styled.section`
   height: auto;
   padding-top: 8rem;
 
-  background: url("/drinks-bg.png");
+  background: url("/hero-assets/hero-bg.png");
   background-size: cover;
   background-position: center;
 
@@ -60,7 +60,7 @@ const DrinksWrapper = styled.section`
     height: auto;
     padding: 8rem 0;
 
-    background: url("/drinks-bg.png");
+    background: url("/hero-assets/hero-bg.png");
     background-size: cover;
     background-position: center;
 

@@ -18,12 +18,12 @@ const SliderWrapper = styled.section`
 
   .slider-container {
     width: 210px;
-    height: 200px;
+    height: 300px;
     margin: 3rem auto;
   }
   div.slick-slide {
     width: 250px;
-    height: 200px;
+    height: auto;
     padding: 0 0.5rem;
     display: flex;
     align-items: center;
@@ -63,6 +63,12 @@ const SliderWrapper = styled.section`
     color: var(--secondary-green);
     border: 2px solid var(--secondary-green);
   }
+
+  .name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
   @media (min-width: 800px) {
     text-align: center;
     margin: 6rem 0 8rem 0;
@@ -79,13 +85,15 @@ const SliderWrapper = styled.section`
 
     .slider-container {
       width: 1210px;
-      height: 400px;
-      margin: 3rem auto;
+      height: auto;
+      margin: 0 auto;
+      padding-bottom: 1rem;
     }
     div.slick-slide {
       width: 250px;
-      height: 400px;
+      height: auto;
       padding: 0 2rem;
+      margin-top: 4rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -119,6 +127,10 @@ const SliderWrapper = styled.section`
       font-size: 1.4rem;
       transition: all 0.3s ease-in-out;
     }
+
+    .name {
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -151,6 +163,7 @@ function Responsive({ meals }) {
             return (
               <div className="meal-img-container" key={meal.id}>
                 <img src={meal.img} alt={meal.name} className="meal-img" />
+                <p className="name">{meal.name}</p>
               </div>
             );
           })}

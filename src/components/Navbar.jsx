@@ -108,7 +108,7 @@ Navbar
     color: darkgray;
   }
 
-  .links a:focus {
+  .links a:focus:not(.submenu) {
     padding-left: 1.2rem;
   }
 
@@ -150,9 +150,6 @@ Navbar
     .links a:hover {
       background-color: transparent;
       border-radius: var(--btn-radius);
-    }
-    .links a:focus {
-      padding: 1.5rem;
     }
 
     .navbar-btn {
