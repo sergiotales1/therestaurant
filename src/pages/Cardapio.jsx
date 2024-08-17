@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import SinglePlate from "../components/cardapio/SinglePlate";
 import CardapioCarousel from "../components/cardapio/cardapio-slider.jsx";
+import ScrollToTop from "../customHooks";
 
 const CardapioWrapper = styled.section`
   width: 100vw;

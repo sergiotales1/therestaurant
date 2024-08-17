@@ -1,7 +1,5 @@
 import axios from "axios";
 import { drinksDescPrice, platesDescPrice } from "./data";
-import { useEffect } from "react";
-import { withRouter } from "react-router-dom";
 
 // NOTE: we are fetching only margaritas!
 const cocktailDbURL =

@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
+import ScrollToTop from "../customHooks";
 
 function HomeLayout() {
   return (
@@ -9,6 +10,7 @@ function HomeLayout() {
       <Navbar />
       <Outlet />
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
