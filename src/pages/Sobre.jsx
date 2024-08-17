@@ -1,20 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import lasanha from "../../assets/landing-rsc/lasanha.png";
-import peixe from "../../assets/landing-rsc/peixe.png";
-import { Link } from "react-router-dom";
+import mainImg from "../assets/sobre-rsc/main-img.png";
+import miniImg from "../assets/sobre-rsc/mini-restaurant.png";
+import groupImg from "../assets/sobre-rsc/image-group.png";
 
-const Section2Wrapper = styled.section`
-  width: 100vw;
-  height: auto;
-
+const SobreWrapper = styled.section`
+  padding: 8rem 2vw 3rem 2vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-
-  .section2-content {
+  .subtitle {
+    border: 3px solid var(--secondary-green);
+    padding: 0.4rem;
+    font-weight: 600;
+    color: var(--secondary-green);
+    font-size: 1rem;
+    border-radius: 25px;
+    margin: 0rem 0 1.5rem 0;
+    display: inline;
+  }
+  .sobre-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,35 +39,41 @@ const Section2Wrapper = styled.section`
     margin: 1rem 0;
   }
 
-  .section2-text {
+  .sobre-text {
+    display: flex;
+    flex-direction: column;
     background-color: var(--secondary-green);
     color: var(--primary-bg-white);
     padding: 1rem;
     transform: translateX(200px);
     opacity: 0;
     transition: all 0.7s ease-in-out;
+    .subtitle {
+      align-self: center;
+      border: 3px solid var(--primary-bg-white);
+      padding: 0.4rem;
+      font-weight: 600;
+      color: var(--primary-bg-white);
+      font-size: 1rem;
+      border-radius: 25px;
+      margin: 0rem 0 1.5rem 0;
+      display: inline;
+    }
   }
 
   .title {
+    font-style: italic;
     padding: 0;
     margin: 0.3rem 0 1.5rem 0;
     letter-spacing: 1px;
+    font-weight: 600;
   }
   .text {
     margin-bottom: 1.5rem;
   }
 
-  .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--primary-bg-white);
-    border: 2px solid var(--primary-bg-white);
-    background-color: transparent;
-    padding: 0.5rem;
-    gap: 1rem;
-    font-size: 1.5rem;
+  .absolute-img {
+    display: none;
   }
 
   .img-container {
@@ -89,7 +101,6 @@ const Section2Wrapper = styled.section`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 6rem 0;
 
     .subtitle {
       border: 3px solid var(--secondary-green);
@@ -100,20 +111,20 @@ const Section2Wrapper = styled.section`
       border-radius: 25px;
     }
 
-    .section2-content {
+    .sobre-content {
       display: grid;
       grid-template-columns: 600px 700px;
       place-items: center;
       gap: 0;
-      margin-top: -6rem;
       padding-right: 5rem;
     }
 
-    .section2-text {
+    .sobre-text {
       background-color: var(--secondary-green);
       color: var(--primary-bg-white);
       padding: 2rem;
       box-shadow: -4px 8px 10px rgba(0, 0, 0, 0.5);
+      z-index: 1;
     }
 
     .title {
@@ -124,34 +135,31 @@ const Section2Wrapper = styled.section`
     }
     .text {
       font-size: 1.4rem;
-      padding-left: 5rem;
     }
-    .btn {
+
+    .content-1 {
+      position: relative;
+    }
+
+    .absolute-img {
+      position: absolute;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-bg-white);
-      border: 2px solid var(--primary-bg-white);
-      background-color: transparent;
-      padding: 0.5rem;
-      gap: 1rem;
-      font-size: 1.5rem;
-      margin-left: 5rem;
-      transition: all 0.2s ease-out;
-    }
+      justify-content: flex-end;
 
-    .btn:hover {
-      border-color: darkgray;
-      color: darkgray;
+      width: 200px;
+      top: 0;
+      right: 0;
+      transform: translateX(200px);
+      opacity: 0;
+      transition: all 0.7s ease-in-out;
     }
-
     .img-container {
-      width: 100%;
-      margin-top: 250px;
-      margin-right: -200px;
-      z-index: 1;
+      margin-top: 2rem;
 
+      width: 100%;
+      margin-right: -200px;
       img {
+        max-height: 700px;
         width: 100%;
       }
     }
@@ -160,7 +168,10 @@ const Section2Wrapper = styled.section`
       grid-template-columns: 700px 600px;
       padding-right: 0;
       padding-left: 7rem;
-      .section2-text {
+      .sobre-text {
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
         grid-column: 1;
         grid-row: 1;
         text-align: end;
@@ -168,19 +179,20 @@ const Section2Wrapper = styled.section`
         flex-direction: column;
         transform: translateX(-200px);
         opacity: 0;
+        padding: 4rem;
+        .subtitle {
+          align-self: center;
+          border: 3px solid var(--primary-bg-white);
+          padding: 0.4rem;
+          font-weight: 600;
+          color: var(--primary-bg-white);
+          font-size: 1.3rem;
+          border-radius: 25px;
+          margin: -2rem 0 1rem 0;
+          display: inline;
+        }
       }
 
-      .text {
-        font-size: 1.4rem;
-        padding-left: 0rem;
-        padding-right: 3rem;
-      }
-
-      .btn {
-        margin-left: 0;
-        margin-right: 3rem;
-        align-self: end;
-      }
       .img-container {
         grid-column: 2;
         margin-right: 0;
@@ -190,20 +202,23 @@ const Section2Wrapper = styled.section`
       }
     }
   }
+
+  .content-1 .absolute-img.show-img,
   .content-2 .img-container.show-img,
-  .content-2 .section2-text.show-text {
+  .content-2 .sobre-text.show-text {
     transform: translateX(0px);
     opacity: 1;
   }
 `;
 
-function Section2() {
+function Sobre() {
   const [content1InView, setContent1InView] = useState(false);
   const [content2InView, setContent2InView] = useState(false);
   const content1ImgRef = useRef(null);
-  const content2ImgRef = useRef(null);
   const content1TextRef = useRef(null);
+  const content2ImgRef = useRef(null);
   const content2TextRef = useRef(null);
+  const content1MiniRef = useRef(null);
 
   useEffect(() => {
     function myIntersectionCb1([entry]) {
@@ -222,7 +237,6 @@ function Section2() {
     if (content1ImgRef.current) {
       imgObserver1.observe(content1ImgRef.current);
     }
-
     function myIntersectionCb2([entry]) {
       if (entry.isIntersecting) {
         setContent2InView(true);
@@ -254,56 +268,53 @@ function Section2() {
     if (content1InView) {
       content1ImgRef.current.classList.add("show-img");
       content1TextRef.current.classList.add("show-text");
+      content1MiniRef.current.classList.add("show-img");
     }
     if (content2InView) {
       content2ImgRef.current.classList.add("show-img");
       content2TextRef.current.classList.add("show-text");
     }
   }, [content1InView, content2InView]);
-
   return (
-    <Section2Wrapper>
-      <h3 className="subtitle">Destaques</h3>
-      <div className="section2-content content-1">
+    <SobreWrapper>
+      <h3 className="subtitle">Sobre nós</h3>
+      <div className="sobre-content content-1">
+        <div className="absolute-img" ref={content1MiniRef}>
+          <img src={miniImg} alt="restaurant photo" />
+        </div>
         <div className="img-container" ref={content1ImgRef}>
-          <img src={lasanha} alt="lasanha photo" />
+          <img src={mainImg} alt="restaurant photo" />
         </div>
-        <div className="section2-text" ref={content1TextRef}>
-          <h1 className="title">Lasanha Alla Bolognese</h1>
+        <div className="sobre-text" ref={content1TextRef}>
+          <h1 className="title">The Restaurant -</h1>
           <p className="text">
-            Lasanha clássica feita com camadas de massa fresca, molho à
-            bolonhesa rico e saboroso. Cada camada é cozida à perfeição,
-            resultando em um prato que derrete na boca, trazendo o sabor
-            autêntico da culinária italiana.
+            Desde 1979, o Restaurant tem sido um refúgio para os amantes da boa
+            gastronomia. Com mais de 20 pratos em nosso cardápio, cada um criado
+            com cuidado e tradição, oferecemos uma experiência culinária que
+            celebra os sabores autênticos e as receitas que passaram de geração
+            em geração. Nosso compromisso com a qualidade e a excelência nos
+            tornou um dos destinos favoritos para aqueles que buscam refeições
+            inesquecíveis em um ambiente acolhedor e familiar. Venha descobrir
+            porque somos um ícone na arte de bem servir há décadas!
           </p>
-          <Link to={"/cardapio"} style={{ textDecoration: "none" }}>
-            <button className="btn">
-              Ver menu <FaLongArrowAltRight className="hero-btn-icon" />
-            </button>
-          </Link>
         </div>
       </div>
-      <div className="section2-content content-2">
+      <div className="sobre-content content-2">
         <div className="img-container" ref={content2ImgRef}>
-          <img src={peixe} alt="lasanha photo" />
+          <img src={groupImg} alt="restaurant photos" />
         </div>
-        <div className="section2-text" ref={content2TextRef}>
-          <h1 className="title">Peixe Frito com Limão</h1>
-          <p className="text">
-            Filé de peixe branco empanado em uma crosta crocante e dourada,
-            servido com fatias de limão fresco e uma seleção de ervas
-            aromáticas. Um prato simples, mas elegante, que destaca a frescura e
-            o sabor natural do peixe.
-          </p>
-          <Link to={"/cardapio"} style={{ textDecoration: "none" }}>
-            <button className="btn">
-              Ver menu <FaLongArrowAltRight className="hero-btn-icon" />
-            </button>
-          </Link>
+        <div className="sobre-text" ref={content2TextRef}>
+          <h3 className="subtitle">Onde Estamos</h3>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42010.60290131493!2d2.3119352327555567!3d48.84557255090852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e270915852f%3A0x868605f9dde4ff64!2sLe%20Calife!5e0!3m2!1sen!2sbr!4v1723928589276!5m2!1sen!2sbr"
+            width="100%"
+            height="100%"
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
-    </Section2Wrapper>
+    </SobreWrapper>
   );
 }
 
-export default Section2;
+export default Sobre;

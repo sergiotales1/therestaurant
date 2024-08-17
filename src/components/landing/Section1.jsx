@@ -3,6 +3,7 @@ import styled from "styled-components";
 import sec1Img from "../../assets/landing-rsc/section1-img.png";
 import utensils from "../../assets/landing-rsc/section1-utensils.png";
 import clock from "../../assets/landing-rsc/section1-clock.png";
+import { Link } from "react-router-dom";
 
 const Section1Wrapper = styled.section`
   width: 100vw;
@@ -215,6 +216,9 @@ const Section1Wrapper = styled.section`
       }
     }
 
+    a {
+      align-self: center;
+    }
     .section1-btn {
       background-color: var(--secondary-green);
       color: var(--primary-bg-white);
@@ -351,8 +355,9 @@ function Section1() {
               <p>desde</p>
             </div>
           </div>
-
-          <button className="section1-btn">Saiba Mais</button>
+          <Link to={"/sobre"}>
+            <button className="section1-btn">Saiba Mais</button>
+          </Link>
         </div>
       </div>
     </Section1Wrapper>

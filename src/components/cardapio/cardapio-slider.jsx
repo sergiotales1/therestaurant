@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
 
@@ -169,7 +170,9 @@ function Responsive({ meals }) {
           })}
         </Slider>
       </div>
-      <button className="btn">Reserva</button>
+      <Link to={"/reserva"}>
+        <button className="btn">Reserva</button>
+      </Link>
     </SliderWrapper>
   );
 }

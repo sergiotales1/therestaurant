@@ -6,6 +6,8 @@ import drinkImg1 from "../assets/reserva-rsc/reserva-img1.png";
 import drinkImg2 from "../assets/reserva-rsc/reserva-img3.png";
 import Form from "../components/Form";
 
+// TODO: implement the handleForm function
+
 const ReservaWrapper = styled.section`
   padding: 8rem 2vw;
   display: flex;
@@ -77,7 +79,7 @@ const ReservaWrapper = styled.section`
 
     .content {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 550px;
       place-items: center;
     }
 

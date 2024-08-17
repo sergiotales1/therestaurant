@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SimpleSlider from "./hero-slider";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import heroBg from "../../assets/hero-assets/hero-bg.png";
+import { Link } from "react-router-dom";
 
 const HeroWrapper = styled.section`
   width: 100vw;
@@ -140,9 +141,11 @@ function Hero() {
             Venha descobrir sabores que contam histórias e deixe-se levar por
             uma verdadeira celebração culinária.
           </p>
-          <button className="hero-btn">
-            Ver menu <FaLongArrowAltRight className="hero-btn-icon" />
-          </button>
+          <Link to={"/cardapio"} style={{ textDecoration: "none" }}>
+            <button className="hero-btn">
+              Ver menu <FaLongArrowAltRight className="hero-btn-icon" />
+            </button>
+          </Link>
         </div>
       </div>
     </HeroWrapper>
