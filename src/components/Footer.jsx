@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import logo from "../assets/logo.png";
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -80,7 +81,7 @@ function Footer() {
   return (
     <FooterWrapper>
       <div className="logo">
-        <img src="/logo.png" alt="logo" />
+        <img src={logo} alt="logo" />
       </div>
       <div className="address">
         <IoLocationSharp className="icon" />

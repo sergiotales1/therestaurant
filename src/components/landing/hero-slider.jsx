@@ -3,10 +3,14 @@ import "slick-carousel/slick/slick-theme.css";
 import React from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
+import heroFrame from "../../assets/hero-assets/hero-frame.png";
+import heroImg1 from "../../assets/hero-assets/hero-image1.png";
+import heroImg2 from "../../assets/hero-assets/hero-image2.png";
+import heroImg3 from "../../assets/hero-assets/hero-image3.png";
 
 const SliderWrapper = styled.div`
   .slider-container {
-    background: url("/hero-assets/hero-frame.png");
+    background: url(${heroFrame});
     background-size: contain;
 
     width: 250px;
@@ -39,7 +43,7 @@ const SliderWrapper = styled.div`
 
   @media (min-width: 800px) {
     .slider-container {
-      background: url("/hero-assets/hero-frame.png");
+      background: url(${heroFrame});
       background-size: cover;
 
       width: 660px;
@@ -89,13 +93,13 @@ export function SimpleSlider() {
       <div className="slider-container">
         <Slider {...settings}>
           <div>
-            <img src="/hero-assets/hero-image1.png"></img>
+            <img src={heroImg1}></img>
           </div>
           <div>
-            <img src="/hero-assets/hero-image2.png"></img>
+            <img src={heroImg2}></img>
           </div>
           <div>
-            <img src="/hero-assets/hero-image3.png"></img>
+            <img src={heroImg3}></img>
           </div>
         </Slider>
       </div>

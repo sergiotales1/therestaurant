@@ -3,13 +3,14 @@ import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import SingleDrink from "../components/drinks/SingleDrink";
 import DrinksCarousel from "../components/drinks/drinks-slider.jsx";
+import heroBg from "../assets/hero-assets/hero-bg.png";
 
 const DrinksWrapper = styled.section`
   width: 100vw;
   height: auto;
   padding-top: 8rem;
 
-  background: url("/hero-assets/hero-bg.png");
+  background: url(${heroBg});
   background-size: cover;
   background-position: center;
 
@@ -60,7 +61,7 @@ const DrinksWrapper = styled.section`
     height: auto;
     padding: 8rem 0;
 
-    background: url("/hero-assets/hero-bg.png");
+    background: url(${heroBg});
     background-size: cover;
     background-position: center;
 

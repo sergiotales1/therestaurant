@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import SimpleSlider from "./hero-slider";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import heroBg from "../../assets/hero-assets/hero-bg.png";
 
 const HeroWrapper = styled.section`
   width: 100vw;
   height: 100vh;
 
-  background: url("/hero-assets/hero-bg.png");
+  background: url(${heroBg});
   background-size: cover;
   background-position: center;
 
@@ -64,7 +65,7 @@ const HeroWrapper = styled.section`
     width: 100vw;
     height: 100vh;
 
-    background: url("/hero-assets/hero-bg.png");
+    background: url(${heroBg});
     background-size: cover;
     background-position: center;
 

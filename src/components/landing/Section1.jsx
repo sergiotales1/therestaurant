@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import sec1Img from "../../assets/landing-rsc/section1-img.png";
+import utensils from "../../assets/landing-rsc/section1-utensils.png";
+import clock from "../../assets/landing-rsc/section1-clock.png";
 
 const Section1Wrapper = styled.section`
   width: 100vw;
@@ -324,10 +327,7 @@ function Section1() {
       <h3 className="subtitle">Venha Conhecer</h3>
       <div className="section1-content">
         <div ref={imgRef} className="section1-img-container">
-          <img
-            src="/landing-rsc/section1-img.png"
-            alt="woman opening a restaurant"
-          />
+          <img src={sec1Img} alt="woman opening a restaurant" />
         </div>
         <div className="section1-text">
           <p className="section1-over-title">The Restaurant</p>
@@ -341,15 +341,12 @@ function Section1() {
 
           <div className="icons-section">
             <div className="pratos-number">
-              <img
-                src="/landing-rsc/section1-utensils.png"
-                alt="utensils icon"
-              />
+              <img src={utensils} alt="utensils icon" />
               <p ref={numberRef}>{plates}</p>
               <p>pratos</p>
             </div>
             <div className="desde-number">
-              <img src="/landing-rsc/section1-clock.png" alt="clock icon" />
+              <img src={clock} alt="clock icon" />
               <p>{years}</p>
               <p>desde</p>
             </div>

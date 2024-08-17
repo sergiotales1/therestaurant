@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import lasanha from "../../assets/landing-rsc/lasanha.png";
+import peixe from "../../assets/landing-rsc/peixe.png";
 
 const Section2Wrapper = styled.section`
   width: 100vw;
@@ -255,7 +257,7 @@ function Section2() {
       <h3 className="subtitle">Destaques</h3>
       <div className="section2-content content-1">
         <div className="img-container" ref={content1ImgRef}>
-          <img src="/landing-rsc/lasanha.png" alt="lasanha photo" />
+          <img src={lasanha} alt="lasanha photo" />
         </div>
         <div className="section2-text" ref={content1TextRef}>
           <h1 className="title">Lasanha Alla Bolognese</h1>
@@ -272,7 +274,7 @@ function Section2() {
       </div>
       <div className="section2-content content-2">
         <div className="img-container" ref={content2ImgRef}>
-          <img src="/landing-rsc/peixe.png" alt="lasanha photo" />
+          <img src={peixe} alt="lasanha photo" />
         </div>
         <div className="section2-text" ref={content2TextRef}>
           <h1 className="title">Peixe Frito com Limão</h1>

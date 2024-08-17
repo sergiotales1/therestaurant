@@ -3,14 +3,14 @@ import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import SinglePlate from "../components/cardapio/SinglePlate";
 import CardapioCarousel from "../components/cardapio/cardapio-slider.jsx";
-import ScrollToTop from "../customHooks";
+import heroBg from "../assets/hero-assets/hero-bg.png";
 
 const CardapioWrapper = styled.section`
   width: 100vw;
   height: auto;
   padding-top: 8rem;
 
-  background: url("/hero-assets/hero-bg.png");
+  background: url(${heroBg});
   background-size: cover;
   background-position: center;
 
@@ -61,7 +61,7 @@ const CardapioWrapper = styled.section`
     height: auto;
     padding: 8rem 0;
 
-    background: url("/hero-assets/hero-bg.png");
+    background: url(${heroBg});
     background-size: cover;
     background-position: center;
 

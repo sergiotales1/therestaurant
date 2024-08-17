@@ -6,6 +6,7 @@ import { FaBars } from "react-icons/fa";
 import { links } from "../js/data";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 // import { handleClick } from "../js/utils";
 
 const Wrapper = styled.section`
@@ -152,6 +153,10 @@ Navbar
       border-radius: var(--btn-radius);
     }
 
+    .links a:focus:not(.submenu) {
+      padding-left: 1.5rem;
+    }
+
     .navbar-btn {
       padding: 0;
     }
@@ -250,7 +255,7 @@ function Navbar() {
       <nav className={"navbar"}>
         <div className="navbar-header">
           <a href="/">
-            <img src="logo.png" alt="logo" className="logo" />
+            <img src={logo} alt="logo" className="logo" />
           </a>
           <button
             onClick={toggleLinks}
@@ -300,7 +305,7 @@ function Navbar() {
                       </Submenu>
                     </>
                   ) : (
-                    <a href={item.url}>{item.text}</a>
+                    <Link to={item.url}>{item.text}</Link>
                   )}
                 </li>
               );
