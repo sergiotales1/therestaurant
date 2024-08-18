@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { FaBirthdayCake } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
 

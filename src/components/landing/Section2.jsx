@@ -176,10 +176,13 @@ const Section2Wrapper = styled.section`
         padding-right: 3rem;
       }
 
+      a {
+        align-self: end;
+      }
+
       .btn {
         margin-left: 0;
         margin-right: 3rem;
-        align-self: end;
       }
       .img-container {
         grid-column: 2;

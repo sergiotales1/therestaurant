@@ -18,6 +18,7 @@ const FormWrapper = styled.div`
 
   input {
     border-radius: 10px;
+    width: 100%;
   }
   .btn {
     background-color: var(--secondary-green);
