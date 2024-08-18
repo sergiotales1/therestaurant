@@ -1,5 +1,6 @@
 import axios from "axios";
 import { drinksDescPrice, platesDescPrice } from "./data";
+import { toast } from "react-toastify";
 
 // NOTE: we are fetching only margaritas!
 const cocktailDbURL =
@@ -31,4 +32,17 @@ export async function fetchPlates() {
   });
 
   return { meals };
+}
+
+export async function handleReservaRequests({ request }) {
+  let data = Object.fromEntries(await request.formData());
+  console.log(data);
+  try {
+    const response = await axios.post("http://localhost:3000", data);
+    toast.success("Reserva efetuada com sucesso!");
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
 }

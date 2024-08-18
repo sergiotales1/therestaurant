@@ -17,6 +17,7 @@ export default function ScrollToTop() {
 export const ReactDatePicker = ({ startDate, onDateChange }) => {
   return (
     <DatePicker
+      name="date"
       className="input-date"
       selected={startDate}
       showTimeSelect

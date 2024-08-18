@@ -1,14 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Landing from "./pages/Landing";
 
 import HomeLayout from "./pages/HomeLayout";
 import Drinks from "./pages/Drinks";
 import Cardapio from "./pages/Cardapio";
-import { fetchDrinks, fetchPlates } from "./js/utils";
+import { fetchDrinks, fetchPlates, handleReservaRequests } from "./js/utils";
 import Reserva from "./pages/Reserva";
 import Sobre from "./pages/Sobre";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/reserva",
         element: <Reserva />,
+        action: handleReservaRequests,
       },
       {
         path: "/sobre",
@@ -52,6 +56,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
+      <ToastContainer position="top-center" />
       <RouterProvider router={router} />
     </>
   );

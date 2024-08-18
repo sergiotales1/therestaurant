@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { ReactDatePicker } from "../customHooks.jsx";
+
 import styled from "styled-components";
+import { Form } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const FormWrapper = styled.div`
   form {
@@ -100,15 +104,16 @@ const FormWrapper = styled.div`
   }
 `;
 
-function Form() {
+function ReservaForm() {
   const [startDate, setStartDate] = useState(new Date());
 
   const handleDataChange = (date) => {
     setStartDate(date);
   };
+
   return (
     <FormWrapper>
-      <form action="">
+      <Form action="/reserva" method="post">
         <label className="name-label">
           Nome:
           <input type="text" name="name" />
@@ -130,15 +135,16 @@ function Form() {
           <ReactDatePicker
             startDate={startDate}
             onDateChange={handleDataChange}
+            name="date"
           />
         </label>
 
         <button className="btn" type="submit">
           Reservar
         </button>
-      </form>
+      </Form>
     </FormWrapper>
   );
 }
 
-export default Form;
+export default ReservaForm;
