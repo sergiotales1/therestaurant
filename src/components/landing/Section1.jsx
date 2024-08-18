@@ -263,8 +263,6 @@ function Section1() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-        } else {
-          setInView(false);
         }
       },
       { threshold: 0.1 }, // Adjust the threshold as needed
@@ -309,8 +307,6 @@ function Section1() {
         setPlates((prevNumber) => prevNumber + 1);
       }, 100);
       return () => clearTimeout(timer);
-    } else if (!inView && plates > 0) {
-      setPlates(0); // Reset number if the component leaves the viewport
     }
   }, [inView, plates]);
   useEffect(() => {
@@ -322,8 +318,6 @@ function Section1() {
         });
       }, 40);
       return () => clearTimeout(timer);
-    } else if (!inView && years > 0) {
-      setYears(0); // Reset number if the component leaves the viewport
     }
   }, [inView, years]);
   return (

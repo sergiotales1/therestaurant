@@ -7,7 +7,6 @@ import { links } from "../js/data";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-// import { handleClick } from "../js/utils";
 
 const Wrapper = styled.section`
   /* 
@@ -24,7 +23,6 @@ Navbar
     z-index: 11;
     padding: 3px 2vw;
     background-color: var(--primary-green);
-    backdrop-filter: blur(4px);
   }
 
   .navbar-opacity {
@@ -254,9 +252,9 @@ function Navbar() {
     <Wrapper>
       <nav className={"navbar"}>
         <div className="navbar-header">
-          <a href="/">
+          <Link to={"/"}>
             <img src={logo} alt="logo" className="logo" />
-          </a>
+          </Link>
           <button
             onClick={toggleLinks}
             className={
@@ -312,7 +310,7 @@ function Navbar() {
             })}
           </ul>
           <button className="navbar-btn" ref={btnRef}>
-            <a target="_blank">Log in</a>
+            <Link to={"/login"}>Log in</Link>
           </button>
         </div>
       </nav>

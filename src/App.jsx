@@ -7,6 +7,8 @@ import Cardapio from "./pages/Cardapio";
 import { fetchDrinks, fetchPlates } from "./js/utils";
 import Reserva from "./pages/Reserva";
 import Sobre from "./pages/Sobre";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "/sobre",
         element: <Sobre />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
     ],
   },
