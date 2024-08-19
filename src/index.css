@@ -32,6 +32,27 @@ body {
 }
 
 /*NOTE: HOW TO STYLE TOAST*/
-/*.Toastify__toast--success {*/
-/*  font-size: 2.3rem;*/
-/*}*/
+.Toastify__toast {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.Toastify__toast-icon {
+  width: 30px;
+}
+
+@media (min-width: 800px) {
+  .Toastify__toast-container {
+    width: 500px;
+  }
+  .Toastify__toast {
+    font-size: 1.8rem;
+
+    font-weight: 600;
+  }
+  .Toastify__toast-icon {
+    width: 50px;
+  }
+  .Toastify__toast-body {
+    gap: 0.8rem;
+  }
+}

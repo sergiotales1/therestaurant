@@ -40,11 +40,32 @@ export async function handleReservaRequests({ request }) {
   const formattedData = { ...data, date };
   console.log(formattedData);
   try {
-    const response = await axios.post("http://localhost:3000", formattedData);
+    const response = await axios.post(
+      "http://localhost:3000/reservas",
+      formattedData,
+    );
     toast.success("Reserva efetuada com sucesso!");
     console.log(response);
   } catch (error) {
     console.log(error);
+    toast.error("Algo deu errado! " + error.message);
+  }
+  return null;
+}
+
+export async function handleLoginRequests({ request }) {
+  let data = Object.fromEntries(await request.formData());
+  console.log(data);
+  try {
+    const response = await axios.post("http://localhost:3000/login", data, {
+      withCredentials: true,
+      credentials: "include",
+    });
+    toast.success("Login efetuado com sucesso!");
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    toast.error("Algo deu errado! " + error.message);
   }
   return null;
 }

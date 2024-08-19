@@ -5,7 +5,12 @@ import Landing from "./pages/Landing";
 import HomeLayout from "./pages/HomeLayout";
 import Drinks from "./pages/Drinks";
 import Cardapio from "./pages/Cardapio";
-import { fetchDrinks, fetchPlates, handleReservaRequests } from "./js/utils";
+import {
+  fetchDrinks,
+  fetchPlates,
+  handleLoginRequests,
+  handleReservaRequests,
+} from "./js/utils";
 import Reserva from "./pages/Reserva";
 import Sobre from "./pages/Sobre";
 import Login from "./pages/Login";
@@ -44,6 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+        action: handleLoginRequests,
       },
       {
         path: "/signup",
@@ -56,7 +62,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" autoClose={2500} />
       <RouterProvider router={router} />
     </>
   );

@@ -104,6 +104,7 @@ const FormWrapper = styled.div`
 
 function ReservaForm() {
   const [startDate, setStartDate] = useState(new Date());
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const telRef = useRef(null);
@@ -113,11 +114,10 @@ function ReservaForm() {
     setStartDate(date);
   };
 
-  const handleSubmit = () => {
-    // nameRef.current.value = null;
-    // emailRef.current.value = null;
-    // telRef.current.value = null;
-    // bdayMonthRef.current.value = null;
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setIsSubmitting(false);
   };
 
   return (
@@ -148,7 +148,7 @@ function ReservaForm() {
             ref={emailRef}
             defaultValue={"john@mail.com"}
             required
-            type="text"
+            type="email"
             name="email"
           />
         </label>
@@ -170,7 +170,7 @@ function ReservaForm() {
           />
         </label>
 
-        <button className="btn" type="submit">
+        <button disabled={isSubmitting} className="btn" type="submit">
           Reservar
         </button>
       </Form>

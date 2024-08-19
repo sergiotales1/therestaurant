@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Reserva } = require("./reserva");
 
-async function addNewDocument(reservaData) {
+async function addNewReserva(reservaData) {
   try {
     // Create / connect to collection reservas
     await mongoose.connect("mongodb://127.0.0.1:27017/reservas");
@@ -24,4 +24,4 @@ async function addNewDocument(reservaData) {
   }
 }
 
-module.exports = { addNewDocument };
+module.exports = { addNewReserva };

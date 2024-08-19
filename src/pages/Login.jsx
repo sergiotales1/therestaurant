@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
 
 import logo from "../assets/black-logo.png";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 const LoginWrapper = styled.section`
   padding: 8rem 0;
@@ -161,23 +161,43 @@ const LoginWrapper = styled.section`
 `;
 
 function Login() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setIsSubmitting(false);
+  };
+
   return (
     <LoginWrapper>
       <div className="content">
         <img src={logo} alt="logo" className="logo" />
-        <form action="">
+        <Form onSubmit={handleSubmit} action="/login" method="post">
           <div className="input-container">
             <IoMail />
-            <input type="text" name="email" placeholder="Email " />
+            <input
+              required
+              defaultValue={"jonh@gmail.com"}
+              type="email"
+              name="email"
+              placeholder="Email "
+            />
           </div>
           <div className="input-container">
             <RiLockPasswordFill />
-            <input type="text" name="password" placeholder="Senha" />
+            <input
+              defaultValue={123123}
+              required
+              minLength={6}
+              type="text"
+              name="password"
+              placeholder="Senha"
+            />
           </div>
-          <button className="btn" type="submit">
+          <button className="btn" disabled={isSubmitting} type="submit">
             Entrar
           </button>
-        </form>
+        </Form>
         <div className="under-form-text">
           <p>Não tem conta?</p>
 
