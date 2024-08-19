@@ -1,33 +1,6 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-
-// NOTE: Mongoose tutorial:
-main().catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/test");
-  console.log("success");
-  const kittySchema = new mongoose.Schema({
-    name: String,
-  });
-
-  kittySchema.methods.speak = function speak() {
-    const greeting = this.name
-      ? "Meow name is " + this.name
-      : "I don't have a name";
-    console.log(greeting);
-  };
-
-  const Kitten = mongoose.model("Kitten", kittySchema);
-  const fluffy = new Kitten({ name: "fluffy" });
-  fluffy.speak(); // "Meow name is fluffy"
-  await fluffy.save();
-  fluffy.speak();
-  const kittens = await Kitten.find();
-  await Kitten.deleteMany({ name: "fluffy" });
-  console.log(kittens);
-}
+const express = require("express");
+const cors = require("cors");
+const { addNewDocument } = require("./models/db");
 
 const app = express();
 const port = 3000;
@@ -41,6 +14,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  data = req.body;
+  let reservaData = { ...data, date: new Date(req.body.date) };
+  addNewDocument(reservaData);
   res.json({ payload: req.body });
 });
 
