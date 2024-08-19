@@ -36,13 +36,33 @@ export async function fetchPlates() {
 
 export async function handleReservaRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
-  console.log(data);
+  const { date } = getIsoString(data.date);
+  const formattedData = { ...data, date };
+  console.log(formattedData);
   try {
-    const response = await axios.post("http://localhost:3000", data);
+    const response = await axios.post("http://localhost:3000", formattedData);
     toast.success("Reserva efetuada com sucesso!");
     console.log(response);
   } catch (error) {
     console.log(error);
   }
   return null;
+}
+
+function getIsoString(dateString) {
+  const [datePart, timePart, period] = dateString.split(" ");
+  const [day, month, year] = datePart.split("/");
+  let [hour, minute] = timePart.split(":");
+
+  // Convert hour to 24-hour format
+  if (period === "PM" && hour !== "12") {
+    hour = parseInt(hour, 10) + 12;
+  } else if (period === "AM" && hour === "12") {
+    hour = "00";
+  }
+
+  // Create the date string in ISO format
+  const isoDateString = `${year}-${month}-${day}T${hour}:${minute}:00`;
+
+  return { date: isoDateString };
 }

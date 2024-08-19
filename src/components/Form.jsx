@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ReactDatePicker } from "../customHooks.jsx";
 
 import styled from "styled-components";
 import { Form } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 const FormWrapper = styled.div`
   form {
@@ -106,29 +104,62 @@ const FormWrapper = styled.div`
 
 function ReservaForm() {
   const [startDate, setStartDate] = useState(new Date());
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const telRef = useRef(null);
+  const bdayMonthRef = useRef(null);
 
   const handleDataChange = (date) => {
     setStartDate(date);
   };
 
+  const handleSubmit = () => {
+    // nameRef.current.value = null;
+    // emailRef.current.value = null;
+    // telRef.current.value = null;
+    // bdayMonthRef.current.value = null;
+  };
+
   return (
-    <FormWrapper>
+    <FormWrapper onSubmit={handleSubmit}>
       <Form action="/reserva" method="post">
         <label className="name-label">
           Nome:
-          <input type="text" name="name" />
+          <input
+            ref={nameRef}
+            defaultValue={"john doe"}
+            required
+            type="text"
+            name="name"
+          />
         </label>
         <label className="tel-label">
-          Número de celular:
-          <input type="text" name="tel" />
+          Número de celular (opcional):
+          <input
+            ref={telRef}
+            defaultValue={"99999-9999"}
+            type="text"
+            name="tel"
+          />
         </label>
         <label className="email-label">
           Email:
-          <input type="text" name="email" />
+          <input
+            ref={emailRef}
+            defaultValue={"john@mail.com"}
+            required
+            type="text"
+            name="email"
+          />
         </label>
         <label className="bday-label">
-          Mês de aniversário (opctional):
-          <input type="text" name="bday" />
+          Mês de aniversário (opcional):
+          <input
+            ref={bdayMonthRef}
+            defaultValue={"December"}
+            type="text"
+            name="bday"
+          />
         </label>
         <label className="date-label">
           Dia e hora da reserva:
