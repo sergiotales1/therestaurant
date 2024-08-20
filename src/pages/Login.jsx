@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 import logo from "../assets/black-logo.png";
 import { Form, Link } from "react-router-dom";
@@ -32,13 +34,14 @@ const LoginWrapper = styled.section`
 
   .input-container {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr 10px;
     background-color: white;
     border: 2px solid lightgrey;
     padding: 0.5rem 0.6rem;
     place-items: center;
     gap: 0.4rem;
     font-size: 1.2rem;
+    width: 300px;
     input {
       border: none;
       outline: none;
@@ -83,6 +86,15 @@ const LoginWrapper = styled.section`
     }
   }
 
+  .btn-pw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+  }
+
   @media (min-width: 800px) {
     padding: 8rem 0 5rem 0;
     display: flex;
@@ -111,12 +123,13 @@ const LoginWrapper = styled.section`
 
     .input-container {
       display: grid;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto 1fr 30px;
       background-color: white;
       border: 2px solid lightgrey;
       padding: 0.8rem;
       gap: 0.4rem;
       font-size: 1.6rem;
+      width: 400px;
       input {
         border: none;
       }
@@ -162,12 +175,18 @@ const LoginWrapper = styled.section`
 
 function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [passwordShow, setPasswordShow] = useState(false);
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 3000));
     setIsSubmitting(false);
   };
 
+  const handlePwVisibility = () => {
+    setPasswordShow(!passwordShow);
+  };
   return (
     <LoginWrapper>
       <div className="content">
@@ -177,7 +196,7 @@ function Login() {
             <IoMail />
             <input
               required
-              defaultValue={"jonh@gmail.com"}
+              defaultValue={"john@gmail.com"}
               type="email"
               name="email"
               placeholder="Email "
@@ -189,10 +208,17 @@ function Login() {
               defaultValue={123123}
               required
               minLength={6}
-              type="text"
+              type={passwordShow ? "text" : "password"}
               name="password"
               placeholder="Senha"
             />
+            <button
+              className="btn-pw"
+              type="button"
+              onClick={handlePwVisibility}
+            >
+              {passwordShow ? <FaEye /> : <FaEyeSlash />}
+            </button>
           </div>
           <button className="btn" disabled={isSubmitting} type="submit">
             Entrar

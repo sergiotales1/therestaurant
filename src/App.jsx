@@ -10,6 +10,7 @@ import {
   fetchPlates,
   handleLoginRequests,
   handleReservaRequests,
+  handleSignupRequests,
 } from "./js/utils";
 import Reserva from "./pages/Reserva";
 import Sobre from "./pages/Sobre";
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+        action: handleSignupRequests,
       },
     ],
   },

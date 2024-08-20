@@ -19,6 +19,9 @@ async function addNewReserva(reservaData) {
 
     //NOTE: To clean db:
     await Reserva.deleteMany({ name: "john doe" });
+    // Close connection
+    mongoose.connection.close();
+    console.log("Disconnecting from db...");
   } catch (error) {
     console.log("An error occurred:" + error);
   }

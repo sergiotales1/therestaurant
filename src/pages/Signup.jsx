@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { FaBirthdayCake } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 import logo from "../assets/black-logo.png";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 const SignupWrapper = styled.section`
   padding: 8rem 0;
@@ -34,13 +36,14 @@ const SignupWrapper = styled.section`
 
   .input-container {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr 10px;
     background-color: white;
     border: 2px solid lightgrey;
     padding: 0.5rem 0.6rem;
     place-items: center;
     gap: 0.4rem;
     font-size: 1.2rem;
+    width: 300px;
     input {
       border: none;
       outline: none;
@@ -84,6 +87,15 @@ const SignupWrapper = styled.section`
     }
   }
 
+  .btn-pw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+  }
+
   @media (min-width: 800px) {
     padding: 8rem 0 5rem 0;
     display: flex;
@@ -112,12 +124,13 @@ const SignupWrapper = styled.section`
 
     .input-container {
       display: grid;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto 1fr 30px;
       background-color: white;
       border: 2px solid lightgrey;
       padding: 0.8rem;
       gap: 0.4rem;
       font-size: 1.6rem;
+      width: 400px;
       input {
         border: none;
       }
@@ -162,22 +175,48 @@ const SignupWrapper = styled.section`
 `;
 
 function Signup() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setIsSubmitting(false);
+  };
+
+  const handlePwVisibility = () => {
+    setPasswordShow(!passwordShow);
+  };
   return (
     <SignupWrapper>
       <div className="content">
         <img src={logo} alt="logo" className="logo" />
-        <form action="">
+        <Form action="/signup" onSubmit={handleSubmit} method="POST">
           <div className="input-container">
             <IoMail />
-            <input type="text" name="email" placeholder="Email " />
+            <input
+              required
+              type="text"
+              defaultValue={"john@gmail.com"}
+              name="email"
+              placeholder="Email "
+            />
           </div>
           <div className="input-container">
             <FaUser />
-            <input type="text" name="name" placeholder="Nome" />
+            <input
+              required
+              type="text"
+              defaultValue={"John Doe"}
+              name="name"
+              placeholder="Nome"
+            />
           </div>
           <div className="input-container">
             <FaBirthdayCake />
             <input
+              defaultValue={"December"}
+              required
               type="text"
               name="bdayMonth"
               placeholder="Mes de aniversário"
@@ -185,12 +224,26 @@ function Signup() {
           </div>
           <div className="input-container">
             <RiLockPasswordFill />
-            <input type="text" name="password" placeholder="Senha" />
+            <input
+              defaultValue={123123}
+              type={passwordShow ? "text" : "password"}
+              required
+              minLength="6"
+              name="password"
+              placeholder="Senha"
+            />
+            <button
+              className="btn-pw"
+              type="button"
+              onClick={handlePwVisibility}
+            >
+              {passwordShow ? <FaEye /> : <FaEyeSlash />}
+            </button>
           </div>
-          <button className="btn" type="submit">
+          <button className="btn" disabled={isSubmitting} type="submit">
             Criar Conta
           </button>
-        </form>
+        </Form>
         <div className="under-form-text">
           <p>Já possui conta?</p>
 

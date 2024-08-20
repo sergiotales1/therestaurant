@@ -65,11 +65,27 @@ export async function handleLoginRequests({ request }) {
     console.log(response);
   } catch (error) {
     console.log(error);
-    toast.error("Algo deu errado! " + error.message);
+    toast.error(error.response.data);
   }
   return null;
 }
 
+export async function handleSignupRequests({ request }) {
+  let data = Object.fromEntries(await request.formData());
+  console.log(data);
+  try {
+    const response = await axios.post("http://localhost:3000/signup", data, {
+      withCredentials: true,
+      credentials: "include",
+    });
+    toast.success("Conta criada com sucesso!");
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    toast.error(error.response.data);
+  }
+  return null;
+}
 function getIsoString(dateString) {
   const [datePart, timePart, period] = dateString.split(" ");
   const [day, month, year] = datePart.split("/");
