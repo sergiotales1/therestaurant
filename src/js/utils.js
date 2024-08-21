@@ -1,6 +1,8 @@
 import axios from "axios";
 import { drinksDescPrice, platesDescPrice } from "./data";
 import { toast } from "react-toastify";
+import { redirect, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 // NOTE: we are fetching only margaritas!
 const cocktailDbURL =
@@ -55,17 +57,20 @@ export async function handleReservaRequests({ request }) {
 
 export async function handleLoginRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
-  console.log(data);
   try {
     const response = await axios.post("http://localhost:3000/login", data, {
       withCredentials: true,
       credentials: "include",
     });
     toast.success("Login efetuado com sucesso!");
-    console.log(response);
+    console.log(response.data);
+    if (response.data === "successfully logged in") {
+      return redirect("/");
+    }
   } catch (error) {
     console.log(error);
     toast.error(error.response.data);
+    return null;
   }
   return null;
 }
@@ -86,6 +91,31 @@ export async function handleSignupRequests({ request }) {
   }
   return null;
 }
+
+export async function handleDashboardRequests({ request }) {
+  let data = Object.fromEntries(await request.formData());
+  console.log(data);
+  try {
+    const response = await axios.post("http://localhost:3000/signup", data, {
+      withCredentials: true,
+      credentials: "include",
+    });
+    toast.success("Conta criada com sucesso!");
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    toast.error(error.response.data);
+  }
+  return null;
+}
+
+export function handleLogout() {
+  Cookies.set("jwt", "", { expires: 1 });
+
+  // Don't need anymore since we're doing it on navbar with href
+  // window.location.replace("/");
+}
+
 function getIsoString(dateString) {
   const [datePart, timePart, period] = dateString.split(" ");
   const [day, month, year] = datePart.split("/");

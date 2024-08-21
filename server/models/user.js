@@ -40,9 +40,9 @@ userSchema.statics.login = async function (email, password) {
       return user;
     }
 
-    throw new Error("Senha incorreta!");
+    throw new Error("incorrect password");
   }
-  throw new Error("Email incorreto!");
+  throw new Error("incorrect email");
 };
 
 // Create model

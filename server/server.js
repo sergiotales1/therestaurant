@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { addNewReserva } = require("./models/reservaDb");
-const { addNewUser, loginUser } = require("./models/userDb");
+const { addNewReserva } = require("./controllers/reservaController");
+const { addNewUser, loginUser } = require("./controllers/userController");
 const jwt = require("jsonwebtoken");
 
 const app = express();
@@ -38,7 +38,17 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await loginUser(email, password);
-    res.json({ user: user._id });
+    // Create token
+    const maxAge = 3 * 24 * 60 * 60; // 3 days
+    const createToken = (id) => {
+      return jwt.sign({ id }, "secret", {
+        expiresIn: maxAge,
+      });
+    };
+
+    let token = createToken(user._id);
+    res.cookie("jwt", token);
+    res.send("successfully logged in");
   } catch (error) {
     console.log("This is the error: " + error);
     res.status(404).send(error.message);
@@ -46,28 +56,20 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  //NOTE: Now we have validation to stop logging the user without
-  //having the right email / pw and we don't allow 2 accounts with
-  //same email
   let data = req.body;
 
   try {
-    // we put await to make the whole operation waits for this one
-    // first, without this, the error was happening and the client were
-    // not receving this info
-    await addNewUser(data);
+    const user = await addNewUser(data);
 
     // Create token
-    //NOTE: NET NIJA code...
-    const maxAge = 3 * 24 * 60 * 60;
-    const createToken = (password) => {
-      return jwt.sign({ password }, "secret", {
+    const maxAge = 3 * 24 * 60 * 60; // 3 days
+    const createToken = (id) => {
+      return jwt.sign({ id }, "secret", {
         expiresIn: maxAge,
       });
     };
 
-    let token = createToken(data.password);
-    //NOTE: NET NINJA code...
+    let token = createToken(user._id);
     res.cookie("jwt", token);
     res.send(token);
   } catch (error) {

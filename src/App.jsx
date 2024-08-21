@@ -8,6 +8,7 @@ import Cardapio from "./pages/Cardapio";
 import {
   fetchDrinks,
   fetchPlates,
+  handleDashboardRequests,
   handleLoginRequests,
   handleReservaRequests,
   handleSignupRequests,
@@ -18,6 +19,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,11 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
         action: handleSignupRequests,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+        action: handleDashboardRequests,
       },
     ],
   },

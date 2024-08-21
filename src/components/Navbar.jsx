@@ -1,12 +1,15 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RiDrinks2Line } from "react-icons/ri";
 import { FaUtensils } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { links } from "../js/data";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { CheckIsLogged } from "../customHooks";
+import { handleLogout } from "../js/utils";
 
 const Wrapper = styled.section`
   /* 
@@ -88,7 +91,9 @@ Navbar
     color: white;
   }
 
-  .navbar-btn a:hover {
+  .navbar-btn a:hover,
+  .navbar-logged-btn:hover,
+  .logged-links a:hover {
     color: darkgray;
     border-color: darkgray;
   }
@@ -109,6 +114,25 @@ Navbar
 
   .links a:focus:not(.submenu) {
     padding-left: 1.2rem;
+  }
+
+  .navbar-logged-btn {
+    border: transparent;
+    background: transparent;
+    outline: none;
+    font-size: 2.4rem;
+    color: var(--primary-bg-white);
+    padding: 0.6rem;
+    cursor: pointer;
+  }
+
+  .logged-links {
+    position: absolute;
+    background-color: var(--primary-green);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.5rem;
   }
 
   @media screen and (min-width: 800px) {
@@ -163,6 +187,31 @@ Navbar
       padding: 10px 25px;
       font-size: 1.4rem;
     }
+
+    .navbar-logged-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: transparent;
+      outline: none;
+      background: transparent;
+      font-size: 3.2rem;
+      color: var(--primary-bg-white);
+      padding: 10px 25px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .logged-links {
+      position: relative;
+      background-color: var(--primary-green);
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+      padding: 1rem;
+      gap: 0.5rem;
+    }
   }
 `;
 const Submenu = styled.div`
@@ -197,12 +246,32 @@ const Submenu = styled.div`
 `;
 
 function Navbar() {
-  const myRef = useRef(null);
+  const submenuRef = useRef(null);
 
   const [showLinks, setShowLinks] = useState(false);
+  const [showLoggedLinks, setShowLoggedLinks] = useState(false);
+  const { isLoggedIn } = CheckIsLogged();
 
-  const handleClick = (e, myRef) => {
-    myRef.current.style.display = "flex";
+  useEffect(() => {
+    if (showLoggedLinks) {
+      document.body.addEventListener("click", handleBodyClickLogged);
+    }
+  }, [showLoggedLinks]);
+
+  const handleBodyClickLogged = (e) => {
+    if (
+      e.target.classList.contains("logged-link-icon") ||
+      e.target.classList.contains("navbar-logged-btn") ||
+      e.target.parentElement.classList.contains("logged-link-icon")
+    ) {
+      return;
+    }
+    setShowLoggedLinks(false);
+    document.body.removeEventListener("click", handleBodyClickLogged);
+  };
+
+  const handleClick = (e, submenuRef) => {
+    submenuRef.current.style.display = "flex";
     document.body.addEventListener("click", handleBodyClick);
     document.body.addEventListener("mouseover", handleBodyOver);
   };
@@ -217,7 +286,7 @@ function Navbar() {
     ) {
       return;
     }
-    myRef.current.style.display = "none";
+    submenuRef.current.style.display = "none";
     document.body.removeEventListener("mouseover", handleBodyOver);
   };
 
@@ -228,7 +297,7 @@ function Navbar() {
     ) {
       return;
     }
-    myRef.current.style.display = "none";
+    submenuRef.current.style.display = "none";
     document.body.removeEventListener("click", handleBodyClick);
   };
 
@@ -277,8 +346,8 @@ function Navbar() {
                   {item.text === "menu" ? (
                     <>
                       <Link
-                        onClick={(e) => handleClick(e, myRef)}
-                        onMouseOver={(e) => handleClick(e, myRef)}
+                        onClick={(e) => handleClick(e, submenuRef)}
+                        onMouseOver={(e) => handleClick(e, submenuRef)}
                         className="menu"
                         to={item.url}
                       >
@@ -286,7 +355,7 @@ function Navbar() {
 
                         <IoMdArrowDropdown className="navbar-menu-icon" />
                       </Link>
-                      <Submenu className="submenu" ref={myRef}>
+                      <Submenu className="submenu" ref={submenuRef}>
                         <Link
                           preventScrollReset={false}
                           className="submenu"
@@ -309,9 +378,35 @@ function Navbar() {
               );
             })}
           </ul>
-          <button className="navbar-btn" ref={btnRef}>
-            <Link to={"/login"}>Log in</Link>
-          </button>
+          {isLoggedIn ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setShowLoggedLinks(!showLoggedLinks)}
+                className="navbar-logged-btn"
+                ref={btnRef}
+              >
+                <FaRegUserCircle className="logged-link-icon" />
+              </button>
+              {showLoggedLinks ? (
+                <div className="logged-links">
+                  <Link className="logged-link" to={"dashboard"}>
+                    Dashboard
+                  </Link>
+                  {/* TODO: configure the logout route */}
+                  <a className="logged-link" href="/" onClick={handleLogout}>
+                    Sair
+                  </a>
+                </div>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            <button type="button" className="navbar-btn" ref={btnRef}>
+              <Link to={"/login"}>Log in</Link>
+            </button>
+          )}
         </div>
       </nav>
     </Wrapper>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Reserva } = require("./reserva");
+const { Reserva } = require("../models/reserva");
 
 async function addNewReserva(reservaData) {
   try {
