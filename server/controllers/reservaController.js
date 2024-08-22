@@ -15,7 +15,6 @@ async function addNewReserva(reservaData) {
 
     // Query all reservas
     const reservas = await Reserva.find();
-    console.log(reservas);
 
     //NOTE: To clean db:
     await Reserva.deleteMany({ name: "john doe" });

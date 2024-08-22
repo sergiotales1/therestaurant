@@ -1,9 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
 const { addNewReserva } = require("./controllers/reservaController");
-const { addNewUser, loginUser } = require("./controllers/userController");
-const jwt = require("jsonwebtoken");
+const {
+  addNewUser,
+  loginUser,
+  getUser,
+} = require("./controllers/userController");
+const { createToken, validateToken } = require("./utils.js");
 
 const app = express();
 const port = 3000;
@@ -20,7 +23,6 @@ const corsOptions = {
 // not cookies!
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("hello from server");
@@ -38,14 +40,8 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await loginUser(email, password);
-    // Create token
-    const maxAge = 3 * 24 * 60 * 60; // 3 days
-    const createToken = (id) => {
-      return jwt.sign({ id }, "secret", {
-        expiresIn: maxAge,
-      });
-    };
 
+    // Create token
     let token = createToken(user._id);
     res.cookie("jwt", token);
     res.send("successfully logged in");
@@ -62,18 +58,31 @@ app.post("/signup", async (req, res) => {
     const user = await addNewUser(data);
 
     // Create token
-    const maxAge = 3 * 24 * 60 * 60; // 3 days
-    const createToken = (id) => {
-      return jwt.sign({ id }, "secret", {
-        expiresIn: maxAge,
-      });
-    };
-
     let token = createToken(user._id);
     res.cookie("jwt", token);
     res.send(token);
   } catch (error) {
     console.log("Handled into post /signup: " + error);
+    res.status(404).send(error.message);
+  }
+});
+
+app.post("/dashboard", async (req, res) => {
+  // This route grabs the current user and send data, with the admin
+  // property which will dictate the view
+  let token = req.body.token;
+
+  // get user's hour
+  // NOTE: You stopped here!
+  let currentTime = new Date().getHours();
+  console.log(currentTime);
+  try {
+    let userId = validateToken(token);
+    let user = await getUser(userId);
+    res.status(200).json({ user });
+  } catch (error) {
+    console.log("Handled into post /dashboard: " + error);
+
     res.status(404).send(error.message);
   }
 });

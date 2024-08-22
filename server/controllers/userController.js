@@ -7,6 +7,7 @@ async function addNewUser(userData) {
     await connectToDb();
 
     // Create new user (create new document)
+    //
     const newUser = new User(userData);
 
     // Save new user
@@ -53,6 +54,13 @@ async function loginUser(email, password) {
   }
 }
 
+async function getUser(id) {
+  await connectToDb();
+  let user = await User.findOne({ _id: id });
+  await disconnectFromDb();
+  return user;
+}
+
 async function connectToDb() {
   await mongoose.connect("mongodb://127.0.0.1:27017/users");
   console.log("Successfully connected into users db");
@@ -62,4 +70,4 @@ async function disconnectFromDb() {
   console.log("Disconnecting from db...");
 }
 
-module.exports = { addNewUser, loginUser };
+module.exports = { addNewUser, loginUser, getUser };

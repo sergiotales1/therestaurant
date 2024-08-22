@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Mongoose middleware that is executed right before any document save
@@ -32,6 +36,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // Static method to login user
+// NOTE: Check it again later!
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {

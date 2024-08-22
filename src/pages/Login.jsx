@@ -8,6 +8,7 @@ import { FaEyeSlash } from "react-icons/fa";
 
 import logo from "../assets/black-logo.png";
 import { Form, Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const LoginWrapper = styled.section`
   padding: 8rem 0;

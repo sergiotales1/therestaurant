@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Admin from "../components/dashboard/Admin";
+import User from "../components/dashboard/User";
 
 const DashboardWrapper = styled.section`
   height: 100vh;
@@ -13,6 +15,9 @@ const DashboardWrapper = styled.section`
 `;
 
 function Dashboard() {
+  const { user } = useLoaderData();
+  console.log(user);
+
   const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("jwt");
@@ -21,8 +26,19 @@ function Dashboard() {
       navigate("/");
     }
   }, []);
+  if (user.isAdmin) {
+    return (
+      <DashboardWrapper>
+        <Admin />
+      </DashboardWrapper>
+    );
+  }
 
-  return <DashboardWrapper>Dashboard</DashboardWrapper>;
+  return (
+    <DashboardWrapper>
+      <User />
+    </DashboardWrapper>
+  );
 }
 
 export default Dashboard;

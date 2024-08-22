@@ -62,7 +62,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
-        action: handleDashboardRequests,
+        loader: handleDashboardRequests,
       },
     ],
   },

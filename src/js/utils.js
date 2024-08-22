@@ -1,7 +1,7 @@
 import axios from "axios";
 import { drinksDescPrice, platesDescPrice } from "./data";
 import { toast } from "react-toastify";
-import { redirect, useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 
 // NOTE: we are fetching only margaritas!
@@ -92,25 +92,31 @@ export async function handleSignupRequests({ request }) {
   return null;
 }
 
-export async function handleDashboardRequests({ request }) {
-  let data = Object.fromEntries(await request.formData());
-  console.log(data);
-  try {
-    const response = await axios.post("http://localhost:3000/signup", data, {
-      withCredentials: true,
-      credentials: "include",
-    });
-    toast.success("Conta criada com sucesso!");
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-    toast.error(error.response.data);
+export async function handleDashboardRequests() {
+  const token = Cookies.get("jwt");
+  let user = {};
+  if (token) {
+    try {
+      const response = await axios.post("http://localhost:3000/dashboard", {
+        token,
+      });
+      toast.success("Bem vindo ao dashboard!");
+      console.log(response);
+      if (response.data) {
+        user = response.data.user;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data);
+    }
+  } else {
+    toast.error("No token found into cookies");
   }
-  return null;
+  return { user };
 }
 
 export function handleLogout() {
-  Cookies.set("jwt", "", { expires: 1 });
+  Cookies.set("jwt", "", { expires: 1 / 48 });
 
   // Don't need anymore since we're doing it on navbar with href
   // window.location.replace("/");
