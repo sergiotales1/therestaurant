@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
 const { User } = require("../models/user");
+const { connectToDb, disconnectFromDb } = require("../utils.js");
 
 async function addNewUser(userData) {
   try {
@@ -59,15 +59,6 @@ async function getUser(id) {
   let user = await User.findOne({ _id: id });
   await disconnectFromDb();
   return user;
-}
-
-async function connectToDb() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/users");
-  console.log("Successfully connected into users db");
-}
-async function disconnectFromDb() {
-  mongoose.connection.close();
-  console.log("Disconnecting from db...");
 }
 
 module.exports = { addNewUser, loginUser, getUser };

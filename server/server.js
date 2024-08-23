@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const { addNewReserva } = require("./controllers/reservaController");
+const {
+  addNewReserva,
+  readReservas,
+  updateExpiredReservas,
+} = require("./controllers/reservaController");
 const {
   addNewUser,
   loginUser,
@@ -44,7 +48,7 @@ app.post("/login", async (req, res) => {
     // Create token
     let token = createToken(user._id);
     res.cookie("jwt", token);
-    res.send("successfully logged in");
+    res.status(200).send("successfully logged in");
   } catch (error) {
     console.log("This is the error: " + error);
     res.status(404).send(error.message);
@@ -72,14 +76,12 @@ app.post("/dashboard", async (req, res) => {
   // property which will dictate the view
   let token = req.body.token;
 
-  // get user's hour
-  // NOTE: You stopped here!
-  let currentTime = new Date().getHours();
-  console.log(currentTime);
+  // Here we receive valid reservas already filtered
+  const reservas = await readReservas();
   try {
     let userId = validateToken(token);
     let user = await getUser(userId);
-    res.status(200).json({ user });
+    res.status(200).json({ user, reservas });
   } catch (error) {
     console.log("Handled into post /dashboard: " + error);
 

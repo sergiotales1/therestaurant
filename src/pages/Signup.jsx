@@ -45,6 +45,7 @@ const SignupWrapper = styled.section`
     font-size: 1.2rem;
     width: 300px;
     input {
+      width: 100%;
       border: none;
       outline: none;
     }

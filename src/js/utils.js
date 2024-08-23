@@ -38,7 +38,7 @@ export async function fetchPlates() {
 
 export async function handleReservaRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
-  const { date } = getIsoString(data.date);
+  const { date } = getDate(data.date);
   const formattedData = { ...data, date };
   console.log(formattedData);
   try {
@@ -63,13 +63,16 @@ export async function handleLoginRequests({ request }) {
       credentials: "include",
     });
     toast.success("Login efetuado com sucesso!");
-    console.log(response.data);
     if (response.data === "successfully logged in") {
       return redirect("/");
     }
   } catch (error) {
     console.log(error);
-    toast.error(error.response.data);
+    if (error.code === "ERR_NETWORK") {
+      toast.error("Não foi possível conectar-se com o servidor!");
+    } else {
+      toast.error(error.response.data);
+    }
     return null;
   }
   return null;
@@ -84,10 +87,16 @@ export async function handleSignupRequests({ request }) {
       credentials: "include",
     });
     toast.success("Conta criada com sucesso!");
+    return redirect("/login");
+
     console.log(response);
   } catch (error) {
     console.log(error);
-    toast.error(error.response.data);
+    if (error.code === "ERR_NETWORK") {
+      toast.error("Não foi possível conectar-se com o servidor!");
+    } else {
+      toast.error(error.response.data);
+    }
   }
   return null;
 }
@@ -122,7 +131,7 @@ export function handleLogout() {
   // window.location.replace("/");
 }
 
-function getIsoString(dateString) {
+function getDate(dateString) {
   const [datePart, timePart, period] = dateString.split(" ");
   const [day, month, year] = datePart.split("/");
   let [hour, minute] = timePart.split(":");
@@ -135,7 +144,7 @@ function getIsoString(dateString) {
   }
 
   // Create the date string in ISO format
-  const isoDateString = `${year}-${month}-${day}T${hour}:${minute}:00`;
+  const date = new Date(year, month - 1, day, hour, minute);
 
-  return { date: isoDateString };
+  return { date };
 }
