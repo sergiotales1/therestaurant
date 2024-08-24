@@ -75,10 +75,12 @@ app.post("/dashboard", async (req, res) => {
   // This route grabs the current user and send data, with the admin
   // property which will dictate the view
   let token = req.body.token;
+  //TODO:
+  // await cleanReservas();
 
   // Here we receive valid reservas already filtered
-  const reservas = await readReservas();
   try {
+    const reservas = await readReservas();
     let userId = validateToken(token);
     let user = await getUser(userId);
     res.status(200).json({ user, reservas });

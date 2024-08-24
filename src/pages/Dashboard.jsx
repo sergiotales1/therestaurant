@@ -6,8 +6,8 @@ import Admin from "../components/dashboard/Admin";
 import User from "../components/dashboard/User";
 
 const DashboardWrapper = styled.section`
-  height: 100vh;
-  width: 100vw;
+  height: auto;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,8 +15,7 @@ const DashboardWrapper = styled.section`
 `;
 
 function Dashboard() {
-  const { user } = useLoaderData();
-  console.log(user);
+  const { user, reservas } = useLoaderData();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -36,7 +35,7 @@ function Dashboard() {
 
   return (
     <DashboardWrapper>
-      <User />
+      <User reservas={reservas} />
     </DashboardWrapper>
   );
 }

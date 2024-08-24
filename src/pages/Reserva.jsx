@@ -6,7 +6,6 @@ import drinkImg1 from "../assets/reserva-rsc/reserva-img1.png";
 import drinkImg2 from "../assets/reserva-rsc/reserva-img3.png";
 import Form from "../components/Form";
 
-// TODO: implement the handleForm function
 const ReservaWrapper = styled.section`
   padding: 8rem 2vw;
   display: flex;

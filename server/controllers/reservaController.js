@@ -31,7 +31,7 @@ async function readReservas() {
     await connectToDb();
     const dirtyReservas = await Reserva.find();
     if (dirtyReservas) {
-      const reservas = await updateExpiredReservas(dirtyReservas);
+      const reservas = await filterExpiredReservas(dirtyReservas);
       return reservas;
     }
     await disconnectFromDb();
@@ -41,26 +41,20 @@ async function readReservas() {
   }
 }
 
-async function updateExpiredReservas(reservas) {
+async function filterExpiredReservas(reservas) {
   const filteredReservas = reservas.filter((reserva) => {
+    const delayTime = 3600000;
     const nowTimeStamp = new Date().getTime();
-    const reservaTimeStamp = reserva.date.getTime();
+    const reservaTimeStamp = reserva.date.getTime() + delayTime;
 
     if (reservaTimeStamp >= nowTimeStamp) {
+      console.log(reserva.date.toString());
       return true;
     } else {
-      (async () => {
-        await Reserva.updateOne(
-          { _id: reserva._id },
-          {
-            expired: true,
-          },
-        );
-      })();
       return false;
     }
   });
   return filteredReservas;
 }
 
-module.exports = { addNewReserva, readReservas, updateExpiredReservas };
+module.exports = { addNewReserva, readReservas };

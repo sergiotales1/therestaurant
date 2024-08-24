@@ -21,9 +21,9 @@ const reservaSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  expired: {
-    type: Boolean,
-    default: false,
+  table: {
+    type: Number,
+    required: true,
   },
 });
 

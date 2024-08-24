@@ -6,7 +6,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { links } from "../js/data";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { CheckIsLogged } from "../customHooks";
 import { handleLogout } from "../js/utils";
@@ -251,6 +251,11 @@ function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
   const [showLoggedLinks, setShowLoggedLinks] = useState(false);
   const { isLoggedIn } = CheckIsLogged();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setShowLinks(false);
+  }, [pathname]);
 
   useEffect(() => {
     if (showLoggedLinks) {
@@ -393,7 +398,6 @@ function Navbar() {
                   <Link className="logged-link" to={"dashboard"}>
                     Dashboard
                   </Link>
-                  {/* TODO: configure the logout route */}
                   <a className="logged-link" href="/" onClick={handleLogout}>
                     Sair
                   </a>

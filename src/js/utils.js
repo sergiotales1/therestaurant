@@ -39,6 +39,9 @@ export async function fetchPlates() {
 export async function handleReservaRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
   const { date } = getDate(data.date);
+  //TODO: we are allowing two reservas at the same table / time, need
+  //to implement something to avoid this!
+  //
   const formattedData = { ...data, date };
   console.log(formattedData);
   try {
@@ -88,8 +91,6 @@ export async function handleSignupRequests({ request }) {
     });
     toast.success("Conta criada com sucesso!");
     return redirect("/login");
-
-    console.log(response);
   } catch (error) {
     console.log(error);
     if (error.code === "ERR_NETWORK") {
@@ -104,15 +105,24 @@ export async function handleSignupRequests({ request }) {
 export async function handleDashboardRequests() {
   const token = Cookies.get("jwt");
   let user = {};
+  let reservas = [];
   if (token) {
     try {
-      const response = await axios.post("http://localhost:3000/dashboard", {
-        token,
-      });
-      toast.success("Bem vindo ao dashboard!");
-      console.log(response);
-      if (response.data) {
+      const response = await axios.post(
+        "http://localhost:3000/dashboard",
+        {
+          token,
+        },
+        {
+          withCredentials: true,
+          credentials: "include",
+        },
+      );
+      if (response.data.user) {
         user = response.data.user;
+      }
+      if (response.data.reservas) {
+        reservas = response.data.reservas;
       }
     } catch (error) {
       console.log(error);
@@ -121,7 +131,7 @@ export async function handleDashboardRequests() {
   } else {
     toast.error("No token found into cookies");
   }
-  return { user };
+  return { user, reservas };
 }
 
 export function handleLogout() {
@@ -147,4 +157,95 @@ function getDate(dateString) {
   const date = new Date(year, month - 1, day, hour, minute);
 
   return { date };
+}
+export function getDashboardDates({ reservas }) {
+  const initialDate = new Date();
+  const initialDateFormat = getDateFormat(initialDate);
+  const initialValidReservas = filterReservasByTime(initialDate, reservas);
+  const InitialTablesTaken = getTablesTaken(initialValidReservas);
+
+  // Next hour
+  const oneHourLater = new Date(); // Get the current date and time
+  oneHourLater.setHours(oneHourLater.getHours() + 1);
+
+  // Next 2 hours
+  const twoHoursLater = new Date(); // Get the current date and time
+  twoHoursLater.setHours(twoHoursLater.getHours() + 2);
+
+  // Next 3 hours
+  const threeHoursLater = new Date(); // Get the current date and time
+  threeHoursLater.setHours(threeHoursLater.getHours() + 3);
+
+  // Next day
+  const nextOneDayDate = new Date();
+  nextOneDayDate.setDate(nextOneDayDate.getDate() + 1);
+
+  // Two next days
+  const nextTwoDaysDate = new Date();
+  nextTwoDaysDate.setDate(nextTwoDaysDate.getDate() + 2);
+
+  // Three next days
+  const nextThreeDaysDate = new Date();
+  nextThreeDaysDate.setDate(nextThreeDaysDate.getDate() + 3);
+
+  return {
+    initialDate,
+    initialDateFormat,
+    initialValidReservas,
+    InitialTablesTaken,
+    nextOneDayDate,
+    nextTwoDaysDate,
+    nextThreeDaysDate,
+    oneHourLater,
+    twoHoursLater,
+    threeHoursLater,
+  };
+}
+
+export function getDateFormat(date) {
+  const today = new Date();
+  const day = date.getDate();
+  const zeroedDay = day > 10 ? day : `0${day}`;
+  const month = date.getMonth() + 1; // 0 is january
+  const zeroedMonth = month > 10 ? month : `0${month}`;
+  const hour = date.getHours();
+  const zeroedHour = hour < 10 ? `0${hour}:00` : `${hour}:00`;
+  let dateFormat = `${zeroedDay}/${zeroedMonth} - ${zeroedHour}`;
+
+  if (date.getDate() === today.getDate()) {
+    dateFormat = `Hoje ${dateFormat}`;
+  }
+  return dateFormat;
+}
+
+export function getTablesTaken(validReservas) {
+  let tablesTaken = validReservas.map((reserva) => {
+    return reserva.table;
+  });
+  return tablesTaken;
+}
+
+export function filterReservasByTime(date, reservas) {
+  // return valid dates and tables taken
+  const month = date.getMonth(); // 0 is january
+  const day = date.getDate();
+  const hour = date.getHours();
+
+  let validReservas = reservas.filter((reserva) => {
+    let reservaDate = new Date(reserva.date);
+    const reservaDay = reservaDate.getDate();
+    const reservaMonth = reservaDate.getMonth(); // 0 is january
+    const reservaHour = reservaDate.getHours();
+
+    if (reservaDay === day && reservaMonth === month) {
+      if (reservaHour > hour) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    return false;
+  });
+
+  return validReservas;
 }
