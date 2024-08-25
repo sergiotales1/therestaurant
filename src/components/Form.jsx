@@ -171,7 +171,14 @@ function ReservaForm() {
         </label>
         <label className="table-label">
           Mesa:
-          <input type="number" name="table" required min={1} max={8} />
+          <input
+            type="number"
+            defaultValue={1}
+            name="table"
+            required
+            min={1}
+            max={8}
+          />
         </label>
 
         <button disabled={isSubmitting} className="btn" type="submit">

@@ -84,7 +84,7 @@ const ReservaWrapper = styled.section`
     .images-container {
       display: grid;
       grid-template-columns: 200px 1fr;
-      grid-template-rows: 250px 250px;
+      grid-template-rows: 300px 300px;
       gap: 1rem;
 
       img {

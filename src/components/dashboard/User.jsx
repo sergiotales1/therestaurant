@@ -7,6 +7,8 @@ import {
   getTablesTaken,
 } from "../../js/utils";
 import { tables } from "../../js/data";
+import background from "../../assets/Group-7.png";
+import { Link } from "react-router-dom";
 
 const UserWrapper = styled.section`
   padding: 8rem 0;
@@ -15,30 +17,73 @@ const UserWrapper = styled.section`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+
+  .title {
+    border: 3px solid var(--secondary-green);
+    padding: 0.4rem;
+    font-weight: 600;
+    color: var(--secondary-green);
+    font-size: 1rem;
+    border-radius: 25px;
+    margin: 0rem 0 2rem 0;
+  }
+
   .today-subtitle {
-    background-color: lightgray;
-    padding: 1rem;
+    background-color: white;
+    padding: 0.7rem;
     text-align: center;
+    border-radius: 15px;
+    border: 2px solid #ededed;
   }
 
   .tables-dashboard {
-    background-color: lightgray;
-    padding: 1rem;
-    margin: 1rem;
     display: grid;
     place-items: center;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 2rem 0.1rem;
+    width: 100%;
     .single-table {
-      width: 40px;
-      height: 40px;
+      background-image: url(${background});
+      background-size: cover;
+      width: 80%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
-  .legenda {
+  .table-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    margin: 1rem;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .table-taken .table-circle {
+    background-color: #fbdadb;
+    color: #f16c6e;
+  }
+
+  .table-available .table-circle {
+    background-color: #adebb3;
+    color: #39784d;
+  }
+
+  .title-legenda {
+    padding: 0 1rem;
+    align-self: flex-start;
+  }
+
+  .legenda {
+    align-self: flex-start;
+    margin: 0 1rem;
+    display: flex;
+    align-items: flex-start;
     justify-content: center;
     gap: 1rem;
   }
@@ -49,9 +94,10 @@ const UserWrapper = styled.section`
     justify-content: center;
     gap: 0.4rem;
     .available-div {
-      width: 40px;
-      height: 40px;
-      background-color: yellow;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #39784d;
     }
   }
   .unavailable-container {
@@ -60,9 +106,10 @@ const UserWrapper = styled.section`
     justify-content: center;
     gap: 0.4rem;
     .unavailable-div {
-      width: 40px;
-      height: 40px;
-      background-color: red;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #f16c6e;
     }
   }
 
@@ -70,16 +117,17 @@ const UserWrapper = styled.section`
     display: grid;
     place-items: center;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 1.3rem 0.7rem;
     margin: 2rem 0;
 
     .single-date {
-      padding: 0.4rem 0.1rem;
+      padding: 0.4rem 0.3rem;
       width: 100%;
-      background-color: lightgrey;
+      background-color: white;
       cursor: pointer;
-      border: 1px solid black;
+      border: 1px solid #39784d;
       outline: transparent;
+      border-radius: 25px;
     }
   }
 
@@ -87,7 +135,6 @@ const UserWrapper = styled.section`
     background-color: var(--secondary-green);
     color: var(--primary-bg-white);
     padding: 0.7rem;
-    margin-top: 2rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -99,97 +146,138 @@ const UserWrapper = styled.section`
     border: 2px solid var(--secondary-green);
   }
 
-  .table-taken {
-    background-color: red;
+  .btn-link {
+    text-decoration: none;
+    color: var(--primary-bg-white);
   }
-  .table-available {
-    background-color: yellow;
+
+  .btn-link:hover {
+    color: var(--secondary-green);
   }
 
   @media (min-width: 800px) {
-    padding: 8rem 0;
+    padding: 5rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     .title {
-      font-size: 3rem;
+      border: 3px solid var(--secondary-green);
+      padding: 0.8rem;
+      font-weight: 600;
+      color: var(--secondary-green);
+      font-size: 1.3rem;
+      border-radius: 25px;
+      margin: 2rem 0 1rem 0;
     }
+
     .today-subtitle {
-      font-size: 2rem;
-      background-color: lightgray;
+      background-color: white;
       padding: 1rem;
       text-align: center;
+      font-size: 1.3rem;
+      border-radius: 15px;
+      border: 3px solid #ededed;
     }
 
     .tables-dashboard {
-      background-color: lightgray;
-      padding: 3rem;
-      margin: 1rem;
+      margin-top: 1rem;
       display: grid;
       place-items: center;
       grid-template-columns: repeat(4, 1fr);
-      gap: 3rem 3rem;
+      gap: 2rem 2rem;
       .single-table {
-        width: 70px;
-        height: 70px;
+        background-image: url(${background});
+        background-size: cover;
+        width: 150px;
+        height: 192px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
-    .legenda {
+    .table-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
       display: flex;
-      align-items: flex-start;
-      margin: 1rem 0;
-      justify-content: flex-start;
-      gap: 3rem;
-      width: 100%;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      font-weight: bold;
+    }
+
+    .table-taken .table-circle {
+      background-color: #fbdadb;
+      color: #f16c6e;
+    }
+
+    .table-available .table-circle {
+      background-color: #adebb3;
+      color: #39784d;
     }
 
     .title-legenda {
+      margin-top: 0.5rem;
+      font-size: 1.5rem;
+      padding: 0 1rem;
       align-self: flex-start;
-      font-size: 2rem;
+    }
+
+    .legenda {
+      align-self: flex-start;
+      margin: 0 1rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;
     }
 
     .available-container {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.7rem;
-      font-size: 2rem;
+      gap: 0.9rem;
+      font-size: 1rem;
       .available-div {
-        width: 55px;
-        height: 55px;
-        background-color: yellow;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #39784d;
       }
     }
     .unavailable-container {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.7rem;
-      font-size: 2rem;
+      gap: 0.9rem;
+      font-size: 1rem;
       .unavailable-div {
-        width: 55px;
-        height: 55px;
-        background-color: red;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #f16c6e;
       }
     }
 
     .dates-container {
       display: grid;
       place-items: center;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
       margin: 2rem 0;
 
       .single-date {
-        font-size: 1.5rem;
-        padding: 0.8rem;
-        background-color: lightgrey;
+        padding: 1rem 3rem;
+        width: 100%;
+        background-color: white;
+        font-size: 1.4rem;
         cursor: pointer;
-        border: 1px solid black;
+        border: 2px solid #39784d;
         outline: transparent;
+        border-radius: 25px;
       }
     }
 
@@ -208,6 +296,14 @@ const UserWrapper = styled.section`
       background-color: transparent;
       color: var(--secondary-green);
       border: 2px solid var(--secondary-green);
+    }
+    .btn-link {
+      text-decoration: none;
+      color: var(--primary-bg-white);
+    }
+
+    .btn-link:hover {
+      color: var(--secondary-green);
     }
   }
 `;
@@ -240,7 +336,7 @@ function User({ reservas }) {
 
   return (
     <UserWrapper>
-      <h1 className="title">Dashboard</h1>
+      <h1 className="title">Confira as reservas do momento</h1>
       <h3 className="today-subtitle">{dateFormat}</h3>
       <div className="tables-dashboard">
         {tables.map((table) => {
@@ -249,14 +345,20 @@ function User({ reservas }) {
               <div
                 key={table}
                 className={`single-table table--${table} table-taken`}
-              ></div>
+              >
+                <div className="table-circle">
+                  <p>{table}</p>
+                </div>
+              </div>
             );
           } else {
             return (
               <div
                 key={table}
                 className={`single-table table--${table} table-available`}
-              ></div>
+              >
+                <div className="table-circle">{table}</div>
+              </div>
             );
           }
         })}
@@ -327,7 +429,11 @@ function User({ reservas }) {
           {getDateFormat(nextThreeDaysDate)}
         </button>
       </div>
-      <button className="btn">Reservar</button>
+      <button className="btn">
+        <Link to={"/reserva"} className="btn-link">
+          Reservar
+        </Link>
+      </button>
     </UserWrapper>
   );
 }
