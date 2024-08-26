@@ -60,7 +60,10 @@ export async function fetchPlates() {
 async function fetchReservas() {
   let reservas = [];
   try {
-    const response = await axios.get("http://localhost:3000/reservas");
+    const response = await axios.get(
+      "https://therestaurantbackend.onrender.com/reservas",
+      // "http://localhost:3000/reservas"
+    );
     if (response.data.reservas) {
       reservas = response.data.reservas;
     }
@@ -99,7 +102,8 @@ export async function handleReservaRequests({ request }) {
   console.log(formattedData);
   try {
     const response = await axios.post(
-      "http://localhost:3000/reservas",
+      "https://therestaurantbackend.onrender.com/reservas",
+      // "http://localhost:3000/reservas",
       formattedData,
     );
     toast.success("Reserva efetuada com sucesso!");
@@ -114,10 +118,16 @@ export async function handleReservaRequests({ request }) {
 export async function handleLoginRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
   try {
-    const response = await axios.post("http://localhost:3000/login", data, {
-      withCredentials: true,
-      credentials: "include",
-    });
+    const response = await axios.post(
+      "https://therestaurantbackend.onrender.com/login",
+      // "http://localhost:3000/login",
+
+      data,
+      {
+        withCredentials: true,
+        credentials: "include",
+      },
+    );
     toast.success("Login efetuado com sucesso!");
     if (response.data === "successfully logged in") {
       return redirect("/");
@@ -138,10 +148,16 @@ export async function handleSignupRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
   console.log(data);
   try {
-    const response = await axios.post("http://localhost:3000/signup", data, {
-      withCredentials: true,
-      credentials: "include",
-    });
+    const response = await axios.post(
+      // "http://localhost:3000/signup"
+
+      "https://therestaurantbackend.onrender.com/signup",
+      data,
+      {
+        withCredentials: true,
+        credentials: "include",
+      },
+    );
     toast.success("Conta criada com sucesso!");
     return redirect("/login");
   } catch (error) {
@@ -163,7 +179,9 @@ export async function handleDashboardRequests() {
   if (token) {
     try {
       const response = await axios.post(
-        "http://localhost:3000/dashboard",
+        // "http://localhost:3000/dashboard",
+
+        "https://therestaurantbackend.onrender.com/dashboard",
         {
           token,
         },
