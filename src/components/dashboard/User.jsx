@@ -331,7 +331,6 @@ function User({ reservas }) {
   function handleClick(e) {
     const date = new Date(e.target.dataset.date);
     setDate(date);
-    console.log(date.toString());
     setDateFormat(getDateFormat(date));
     setValidReservas(filterReservasByTime(date, reservas));
     // NOTE: Okay this is ugly and we need to adjust later

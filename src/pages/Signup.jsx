@@ -10,6 +10,7 @@ import { FaEyeSlash } from "react-icons/fa";
 
 import logo from "../assets/black-logo.png";
 import { Form, Link } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const SignupWrapper = styled.section`
   padding: 8rem 0;
@@ -241,9 +242,14 @@ function Signup() {
               {passwordShow ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
-          <button className="btn" disabled={isSubmitting} type="submit">
-            Criar Conta
-          </button>
+
+          {isSubmitting ? (
+            <CircularProgress color="success" />
+          ) : (
+            <button className="btn" disabled={isSubmitting} type="submit">
+              Criar Conta
+            </button>
+          )}
         </Form>
         <div className="under-form-text">
           <p>Já possui conta?</p>

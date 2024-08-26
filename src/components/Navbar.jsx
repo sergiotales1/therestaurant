@@ -6,10 +6,16 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { links } from "../js/data";
 import styled from "styled-components";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import logo from "../assets/logo.png";
 import { CheckIsLogged } from "../customHooks";
 import { handleLogout } from "../js/utils";
+import { CircularProgress } from "@mui/material";
 
 const Wrapper = styled.section`
   /* 
@@ -246,6 +252,7 @@ const Submenu = styled.div`
 `;
 
 function Navbar() {
+  const navigation = useNavigation();
   const submenuRef = useRef(null);
 
   const [showLinks, setShowLinks] = useState(false);
@@ -255,6 +262,7 @@ function Navbar() {
 
   useEffect(() => {
     setShowLinks(false);
+    setShowLoggedLinks(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -395,9 +403,13 @@ function Navbar() {
               </button>
               {showLoggedLinks ? (
                 <div className="logged-links">
-                  <Link className="logged-link" to={"dashboard"}>
-                    Dashboard
-                  </Link>
+                  {navigation.state === "loading" ? (
+                    <CircularProgress color="info" />
+                  ) : (
+                    <Link className="logged-link" to={"dashboard"}>
+                      Dashboard
+                    </Link>
+                  )}
                   <a className="logged-link" href="/" onClick={handleLogout}>
                     Sair
                   </a>

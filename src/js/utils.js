@@ -76,7 +76,6 @@ async function fetchReservas() {
 
 export async function handleReservaRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
-  console.log(data);
   const { date } = getDate(data.date);
   let { reservas } = await fetchReservas();
   let sameTimeTakenTables = filterReservasByTime(date, reservas).map(
@@ -92,14 +91,7 @@ export async function handleReservaRequests({ request }) {
     return null;
   }
 
-  console.log(sameTimeTakenTables);
-
-  console.log(date);
-  //TODO: we are allowing two reservas at the same table / time, need
-  //to implement something to avoid this!
-  //
   const formattedData = { ...data, date };
-  console.log(formattedData);
   try {
     const response = await axios.post(
       "https://therestaurantbackend.onrender.com/reservas",
@@ -177,7 +169,6 @@ export async function handleDashboardRequests() {
   const token = Cookies.get("jwt");
   let user = {};
   let reservas = [];
-  console.log(reservas);
   if (token) {
     try {
       const response = await axios.post(
@@ -235,7 +226,6 @@ function getDate(dateString) {
 export function getDashboardDates({ reservas, date }) {
   const initialDate = new Date();
   const initialDateFormat = getDateFormat(initialDate);
-  console.log("here");
   const initialValidReservas = filterReservasByTime(date, reservas);
   const InitialTablesTaken = getTablesTaken(initialValidReservas);
 
@@ -312,7 +302,6 @@ export function filterReservasByTime(date, reservas) {
     const reservaDay = reservaDate.getDate();
     const reservaMonth = reservaDate.getMonth(); // 0 is january
     const reservaHour = reservaDate.getHours();
-    console.log(reservaDate.toString());
 
     if (reservaDay === day && reservaMonth === month) {
       if (reservaHour + 1 >= hour) {

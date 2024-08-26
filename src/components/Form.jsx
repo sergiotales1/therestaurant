@@ -3,6 +3,7 @@ import { ReactDatePicker } from "../customHooks.jsx";
 
 import styled from "styled-components";
 import { Form } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const FormWrapper = styled.div`
   form {
@@ -21,6 +22,7 @@ const FormWrapper = styled.div`
   input {
     border-radius: 10px;
     width: 100%;
+    padding: 0.4rem;
   }
   .btn {
     background-color: var(--secondary-green);
@@ -180,10 +182,13 @@ function ReservaForm() {
             max={8}
           />
         </label>
-
-        <button disabled={isSubmitting} className="btn" type="submit">
-          Reservar
-        </button>
+        {isSubmitting ? (
+          <CircularProgress color="success" />
+        ) : (
+          <button disabled={isSubmitting} className="btn" type="submit">
+            Reservar
+          </button>
+        )}
       </Form>
     </FormWrapper>
   );
