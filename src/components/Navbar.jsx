@@ -275,7 +275,7 @@ function Navbar() {
     if (
       e.target.classList.contains("logged-link-icon") ||
       e.target.classList.contains("navbar-logged-btn") ||
-      e.target?.parentElement?.classList?.contains("logged-link-icon")
+      e.target.parentElement.classList.contains("logged-link-icon")
     ) {
       return;
     }
@@ -294,8 +294,8 @@ function Navbar() {
       e.target.classList.contains("submenu") ||
       e.target.classList.contains("menu") ||
       e.target.classList.contains("navbar-menu-icon") ||
-      e.target?.parentElement?.classList?.contains("submenu") ||
-      e.target?.parentElement?.classList?.contains("submenu-icon")
+      e.target.parentElement.classList?.contains("submenu") ||
+      e.target.parentElement.classList?.contains("submenu-icon")
     ) {
       return;
     }
