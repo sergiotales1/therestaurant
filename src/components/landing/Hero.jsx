@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 const HeroWrapper = styled.section`
   width: 100vw;
-  height: 85vh;
+  height: auto;
+  padding-top: 3.5rem;
 
   background: url(${heroBg});
   background-size: cover;
