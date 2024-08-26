@@ -178,14 +178,7 @@ const SignupWrapper = styled.section`
 
 function Signup() {
   const navigation = useNavigation();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [passwordShow, setPasswordShow] = useState(false);
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setIsSubmitting(false);
-  };
 
   const handlePwVisibility = () => {
     setPasswordShow(!passwordShow);
@@ -194,7 +187,7 @@ function Signup() {
     <SignupWrapper>
       <div className="content">
         <img src={logo} alt="logo" className="logo" />
-        <Form action="/signup" onSubmit={handleSubmit} method="POST">
+        <Form action="/signup" method="POST">
           <div className="input-container">
             <IoMail />
             <input
@@ -247,7 +240,7 @@ function Signup() {
           {navigation.state === "submitting" ? (
             <CircularProgress color="success" />
           ) : (
-            <button className="btn" disabled={isSubmitting} type="submit">
+            <button className="btn" type="submit">
               Criar Conta
             </button>
           )}

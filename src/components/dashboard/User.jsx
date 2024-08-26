@@ -335,7 +335,6 @@ function User({ reservas }) {
     setValidReservas(filterReservasByTime(date, reservas));
     // NOTE: Okay this is ugly and we need to adjust later
     setTablesTaken(getTablesTaken(filterReservasByTime(date, reservas)));
-    console.log("separate");
   }
 
   return (

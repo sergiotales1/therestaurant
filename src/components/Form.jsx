@@ -106,9 +106,7 @@ const FormWrapper = styled.div`
 
 function ReservaForm() {
   const navigation = useNavigation();
-  console.log(navigation);
   const [startDate, setStartDate] = useState(new Date());
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const telRef = useRef(null);
@@ -118,14 +116,8 @@ function ReservaForm() {
     setStartDate(date);
   };
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setIsSubmitting(false);
-  };
-
   return (
-    <FormWrapper onSubmit={handleSubmit}>
+    <FormWrapper>
       <Form action="/reserva" method="post">
         <label className="name-label">
           Nome:
@@ -187,7 +179,7 @@ function ReservaForm() {
         {navigation.state === "submitting" ? (
           <CircularProgress color="success" />
         ) : (
-          <button disabled={isSubmitting} className="btn" type="submit">
+          <button className="btn" type="submit">
             Reservar
           </button>
         )}

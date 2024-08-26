@@ -140,7 +140,6 @@ export async function handleLoginRequests({ request }) {
 
 export async function handleSignupRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
-  console.log(data);
   try {
     const response = await axios.post(
       // "http://localhost:3000/signup"
