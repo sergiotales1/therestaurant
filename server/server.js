@@ -65,7 +65,7 @@ app.post("/login", async (req, res) => {
       sameSite: "None",
       maxAge: 3600000,
     });
-    res.status(200).send("successfully logged in");
+    res.status(200).json({ token });
   } catch (error) {
     console.log("This is the error: " + error);
     res.status(404).send(error.message);

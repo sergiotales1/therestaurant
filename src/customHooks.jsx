@@ -21,6 +21,7 @@ export function CheckIsLogged() {
 
   useEffect(() => {
     const token = Cookies.get("jwt");
+    console.log(token);
     if (token) {
       setIsLoggedIn(true);
     } else {
