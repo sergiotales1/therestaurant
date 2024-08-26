@@ -61,7 +61,9 @@ app.post("/login", async (req, res) => {
     // Create token
     let token = createToken(user._id);
     res.cookie("jwt", token, {
+      secure: true,
       sameSite: "None",
+      maxAge: 3600000,
     });
     res.status(200).send("successfully logged in");
   } catch (error) {
