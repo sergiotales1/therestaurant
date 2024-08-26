@@ -18,7 +18,8 @@ const port = 3000;
 // Accept cors with this config
 // We only need this because of cookies creation / read
 const corsOptions = {
-  origin: "http://localhost:5173",
+  // origin: "http://localhost:5173",
+  origin: "https://br-restaurant.netlify.app/",
   // origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
@@ -59,7 +60,9 @@ app.post("/login", async (req, res) => {
 
     // Create token
     let token = createToken(user._id);
-    res.cookie("jwt", token);
+    res.cookie("jwt", token, {
+      sameSite: "None",
+    });
     res.status(200).send("successfully logged in");
   } catch (error) {
     console.log("This is the error: " + error);
