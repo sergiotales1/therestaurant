@@ -404,13 +404,13 @@ function Navbar() {
               {showLoggedLinks ? (
                 <div className="logged-links">
                   {navigation.state === "loading" ? (
-                    <Link className="logged-link" to={"dashboard"}>
-                      Dashboard
-                    </Link>
-                  ) : (
                     <Stack sx={{ color: "white" }}>
                       <CircularProgress color="inherit" />
                     </Stack>
+                  ) : (
+                    <Link className="logged-link" to={"dashboard"}>
+                      Dashboard
+                    </Link>
                   )}
                   <a className="logged-link" href="/" onClick={handleLogout}>
                     Sair
