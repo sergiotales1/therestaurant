@@ -15,7 +15,7 @@ import {
 import logo from "../assets/logo.png";
 import { CheckIsLogged } from "../customHooks";
 import { handleLogout } from "../js/utils";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 
 const Wrapper = styled.section`
   /* 
@@ -404,11 +404,13 @@ function Navbar() {
               {showLoggedLinks ? (
                 <div className="logged-links">
                   {navigation.state === "loading" ? (
-                    <CircularProgress color="info" />
-                  ) : (
                     <Link className="logged-link" to={"dashboard"}>
                       Dashboard
                     </Link>
+                  ) : (
+                    <Stack sx={{ color: "white" }}>
+                      <CircularProgress color="inherit" />
+                    </Stack>
                   )}
                   <a className="logged-link" href="/" onClick={handleLogout}>
                     Sair

@@ -7,7 +7,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
 import logo from "../assets/black-logo.png";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
 const LoginWrapper = styled.section`
@@ -176,6 +176,8 @@ const LoginWrapper = styled.section`
 `;
 
 function Login() {
+  const navigation = useNavigation();
+  console.log(navigation);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [passwordShow, setPasswordShow] = useState(false);
@@ -222,7 +224,7 @@ function Login() {
               {passwordShow ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
-          {isSubmitting ? (
+          {navigation.state === "submitting" ? (
             <CircularProgress color="success" />
           ) : (
             <button className="btn" disabled={isSubmitting} type="submit">

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { ReactDatePicker } from "../customHooks.jsx";
 
 import styled from "styled-components";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
 const FormWrapper = styled.div`
@@ -105,6 +105,8 @@ const FormWrapper = styled.div`
 `;
 
 function ReservaForm() {
+  const navigation = useNavigation();
+  console.log(navigation);
   const [startDate, setStartDate] = useState(new Date());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const nameRef = useRef(null);
@@ -182,7 +184,7 @@ function ReservaForm() {
             max={8}
           />
         </label>
-        {isSubmitting ? (
+        {navigation.state === "submitting" ? (
           <CircularProgress color="success" />
         ) : (
           <button disabled={isSubmitting} className="btn" type="submit">
