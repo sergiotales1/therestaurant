@@ -19,7 +19,7 @@ const port = 3000;
 // We only need this because of cookies creation / read
 const corsOptions = {
   // origin: "http://localhost:5173",
-  origin: "https://br-restaurant.netlify.app/",
+  origin: "https://br-restaurant.netlify.app",
   // origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
