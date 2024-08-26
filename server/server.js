@@ -40,6 +40,17 @@ app.post("/reservas", (req, res) => {
   res.json({ payload: req.body });
 });
 
+app.get("/reservas", async (req, res) => {
+  try {
+    const reservas = await readReservas();
+    res.status(200).json({ reservas });
+  } catch (error) {
+    console.log("Handled into post /dashboard: " + error);
+
+    res.status(404).send(error.message);
+  }
+});
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {

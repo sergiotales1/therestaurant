@@ -14,31 +14,84 @@ const mealDbUrl = "https://www.themealdb.com/api/json/v1/1/search.php?f=v";
 export async function fetchDrinks() {
   //NOTE: Here we are fetching drinks and at the same time formatting
   //everyting!!
-  const response = await axios.get(cocktailDbURL);
-  const drinks = response.data.drinks.map((drink, index) => {
-    const { idDrink: id, strDrink: name, strDrinkThumb: img } = drink;
-    const { desc, price } = drinksDescPrice[index];
-    return { id, name, img, desc, price };
-  });
+  try {
+    // if we dont have the response into 5s...
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => reject(new Error("Fetch timed out")), 5000);
+    });
 
-  return { drinks };
+    const response = await Promise.race([
+      axios.get(cocktailDbURL),
+      timeoutPromise,
+    ]);
+    const drinks = response.data.drinks.map((drink, index) => {
+      const { idDrink: id, strDrink: name, strDrinkThumb: img } = drink;
+      const { desc, price } = drinksDescPrice[index];
+      return { id, name, img, desc, price };
+    });
+    return { drinks };
+  } catch (error) {
+    toast.error("Não temos acesso ao menu Drinks no momento...");
+    return redirect("/");
+  }
 }
 export async function fetchPlates() {
   //NOTE: Here we are fetching drinks and at the same time formatting
   //everyting!!
-  const response = await axios.get(mealDbUrl);
-  const meals = response.data.meals.map((meal, index) => {
-    const { idMeal: id, strMeal: name, strMealThumb: img } = meal;
-    const { desc, price } = platesDescPrice[index];
-    return { id, name, img, desc, price };
-  });
+  try {
+    // if we dont have the response into 5s...
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => reject(new Error("Fetch timed out")), 5000);
+    });
 
-  return { meals };
+    const response = await Promise.race([axios.get(mealDbUrl), timeoutPromise]);
+    const meals = response.data.meals.map((meal, index) => {
+      const { idMeal: id, strMeal: name, strMealThumb: img } = meal;
+      const { desc, price } = platesDescPrice[index];
+      return { id, name, img, desc, price };
+    });
+    return { meals };
+  } catch (error) {
+    toast.error("Não temos acesso ao Cardápio no momento...");
+    return redirect("/");
+  }
+}
+
+async function fetchReservas() {
+  let reservas = [];
+  try {
+    const response = await axios.get("http://localhost:3000/reservas");
+    if (response.data.reservas) {
+      reservas = response.data.reservas;
+    }
+  } catch (err) {
+    console.error("handled on fetchReservas: " + err);
+  }
+
+  return { reservas };
 }
 
 export async function handleReservaRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
+  console.log(data);
   const { date } = getDate(data.date);
+  let { reservas } = await fetchReservas();
+  let sameTimeTakenTables = filterReservasByTime(date, reservas).map(
+    (reserva) => {
+      return reserva.table;
+    },
+  );
+  if (sameTimeTakenTables.includes(parseInt(data.table))) {
+    toast.error(
+      "Já temos uma reserva na mesma hora e mesa...  Mesas ocupadas: " +
+        sameTimeTakenTables.join(", "),
+    );
+    return null;
+  }
+
+  console.log(sameTimeTakenTables);
+
+  console.log(date);
   //TODO: we are allowing two reservas at the same table / time, need
   //to implement something to avoid this!
   //
@@ -106,6 +159,7 @@ export async function handleDashboardRequests() {
   const token = Cookies.get("jwt");
   let user = {};
   let reservas = [];
+  console.log(reservas);
   if (token) {
     try {
       const response = await axios.post(
@@ -126,7 +180,7 @@ export async function handleDashboardRequests() {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data);
+      toast.error(error.response);
     }
   } else {
     toast.error("No token found into cookies");
@@ -158,10 +212,11 @@ function getDate(dateString) {
 
   return { date };
 }
-export function getDashboardDates({ reservas }) {
+export function getDashboardDates({ reservas, date }) {
   const initialDate = new Date();
   const initialDateFormat = getDateFormat(initialDate);
-  const initialValidReservas = filterReservasByTime(initialDate, reservas);
+  console.log("here");
+  const initialValidReservas = filterReservasByTime(date, reservas);
   const InitialTablesTaken = getTablesTaken(initialValidReservas);
 
   // Next hour
@@ -215,6 +270,7 @@ export function getDateFormat(date) {
   if (date.getDate() === today.getDate()) {
     dateFormat = `Hoje ${dateFormat}`;
   }
+
   return dateFormat;
 }
 
@@ -236,12 +292,13 @@ export function filterReservasByTime(date, reservas) {
     const reservaDay = reservaDate.getDate();
     const reservaMonth = reservaDate.getMonth(); // 0 is january
     const reservaHour = reservaDate.getHours();
+    console.log(reservaDate.toString());
 
     if (reservaDay === day && reservaMonth === month) {
-      if (reservaHour > hour) {
-        return false;
-      } else {
+      if (reservaHour + 1 >= hour) {
         return true;
+      } else {
+        return false;
       }
     }
     return false;

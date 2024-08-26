@@ -14,8 +14,8 @@ async function addNewUser(userData) {
     await newUser.save();
 
     // Query all users
-    const users = await User.find();
-    console.log(users);
+    // const users = await User.find();
+    // console.log(users);
 
     //NOTE: To clean db:
     // await User.deleteMany({ email: "john@gmail.com" });

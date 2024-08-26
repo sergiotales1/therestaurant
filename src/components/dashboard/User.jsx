@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   filterReservasByTime,
@@ -309,6 +309,7 @@ const UserWrapper = styled.section`
 `;
 
 function User({ reservas }) {
+  const [date, setDate] = useState(new Date());
   const {
     initialDate,
     initialDateFormat,
@@ -320,23 +321,27 @@ function User({ reservas }) {
     nextOneDayDate,
     nextTwoDaysDate,
     nextThreeDaysDate,
-  } = getDashboardDates({ reservas });
+  } = getDashboardDates({ reservas, date });
 
   const [dateFormat, setDateFormat] = useState(initialDateFormat);
   const [validReservas, setValidReservas] = useState(initialValidReservas);
   const [tablesTaken, setTablesTaken] = useState(InitialTablesTaken);
 
+  console.log(date);
   function handleClick(e) {
     const date = new Date(e.target.dataset.date);
+    setDate(date);
+    console.log(date.toString());
     setDateFormat(getDateFormat(date));
     setValidReservas(filterReservasByTime(date, reservas));
     // NOTE: Okay this is ugly and we need to adjust later
     setTablesTaken(getTablesTaken(filterReservasByTime(date, reservas)));
+    console.log("separate");
   }
 
   return (
     <UserWrapper>
-      <h1 className="title">Confira as reservas do momento</h1>
+      <h1 className="title">Confira nossas reservas do momento</h1>
       <h3 className="today-subtitle">{dateFormat}</h3>
       <div className="tables-dashboard">
         {tables.map((table) => {
@@ -376,7 +381,7 @@ function User({ reservas }) {
         </div>
       </div>
       <div className="dates-container">
-        {initialDateFormat === dateFormat ? (
+        {dateFormat === initialDateFormat ? (
           <button
             data-date={oneHourLater}
             className="single-date"

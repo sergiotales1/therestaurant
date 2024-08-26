@@ -13,9 +13,9 @@ async function addNewReserva(reservaData) {
     // Save new reserva
     await newReserva.save();
 
-    // Query all reservas
-    const reservas = await Reserva.find();
-    console.log(reservas);
+    // // Query all reservas
+    // const reservas = await Reserva.find();
+    // console.log(reservas);
 
     //NOTE: To clean db:
     // await Reserva.deleteMany({ name: "john doe" });
@@ -48,7 +48,6 @@ async function filterExpiredReservas(reservas) {
     const reservaTimeStamp = reserva.date.getTime() + delayTime;
 
     if (reservaTimeStamp >= nowTimeStamp) {
-      console.log(reserva.date.toString());
       return true;
     } else {
       return false;

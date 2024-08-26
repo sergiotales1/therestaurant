@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const maxAge = 3 * 24 * 60 * 60; // 3 days
 const createToken = (id) => {
@@ -14,7 +15,7 @@ const validateToken = (token) => {
 };
 
 async function connectToDb() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/restaurantDb");
+  await mongoose.connect(process.env.DB_CONNECTION_URL);
   console.log("Successfully connected into users db");
 }
 async function disconnectFromDb() {
