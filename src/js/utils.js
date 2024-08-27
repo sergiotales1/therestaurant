@@ -142,7 +142,7 @@ export async function handleSignupRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
   try {
     const response = await axios.post(
-      // "http://localhost:3000/signup"
+      // "http://localhost:3000/signup",
 
       "https://therestaurantbackend.onrender.com/signup",
       data,
@@ -303,7 +303,7 @@ export function filterReservasByTime(date, reservas) {
     const reservaHour = reservaDate.getHours();
 
     if (reservaDay === day && reservaMonth === month) {
-      if (reservaHour < hour && reservaHour + 1 >= hour) {
+      if (reservaHour <= hour && reservaHour + 1 >= hour) {
         return true;
       } else {
         return false;
