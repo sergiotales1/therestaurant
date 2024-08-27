@@ -303,7 +303,7 @@ export function filterReservasByTime(date, reservas) {
     const reservaHour = reservaDate.getHours();
 
     if (reservaDay === day && reservaMonth === month) {
-      if (reservaHour + 1 >= hour) {
+      if (reservaHour < hour && reservaHour + 1 >= hour) {
         return true;
       } else {
         return false;

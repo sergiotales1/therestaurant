@@ -19,7 +19,7 @@ const FooterWrapper = styled.footer`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
+    width: 285px;
     .icon {
       font-size: 2.5rem;
     }
