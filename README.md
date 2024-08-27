@@ -1,5 +1,11 @@
 <h1 align="center">:spaghetti: TheRestaurant :spaghetti:</h1>
 
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![StyledComponents](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+
+
 The restaurant é uma aplicação web que permite o usuário acessar o menu, ver informações sobre um restaurante e até mesmo reservar mesas online.
 
 A cereja do bolo é o dashboard que o usuarío possui acesso caso realize o login, lá ele encontra um painel com todas as reservas feitas no intervalo de tempo selecionado.
