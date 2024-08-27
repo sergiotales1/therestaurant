@@ -35,7 +35,7 @@ function AlertDialogSlide() {
         if (navigation.state === "submitting") {
           setOpen(true);
         }
-      }, 3500);
+      }, 5500);
     } else {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -57,13 +57,17 @@ function AlertDialogSlide() {
     setOpen(false);
   };
 
+  const handleCloseOverlay = () => {
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
       <Dialog
         open={open}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        onClose={handleCloseOverlay}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
@@ -73,8 +77,8 @@ function AlertDialogSlide() {
           <DialogContentText id="alert-dialog-slide-description">
             Utilizamos um serviço de hospedagem gratuito para manter o nosso
             servidor online e em períodos de inatividade ele fecha suas portas,
-            mas não se preocupe! Basta reiniciar a página que todas as
-            funcionalidades do site irão retornar com força total!
+            mas não se preocupe! Basta reiniciar a página e aguardar um pouco
+            que todas as funcionalidades do site irão retornar com força total!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
