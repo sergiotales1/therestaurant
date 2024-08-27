@@ -12,7 +12,7 @@ A cereja do bolo é o dashboard que o usuarío possui acesso caso realize o logi
 ### ✨ Recursos
 - **🌍 Navegação no Menu:** Os usuários podem explorar os pratos do restaurante, organizados por categorias.
 - **:tropical_drink: Sistema de Reservas:** Permite que os usuários reservem mesas para uma data e hora específicas.
-- **💅 Design Responsivo:** Otimizado para uso em vários dispositivos, incluindo dispositivos móveis e desktop.
+- **:blush: Design Responsivo:** Otimizado para uso em vários dispositivos, incluindo dispositivos móveis e desktop.
 - **🚀 Painel Administrativo:** Os administradores podem gerenciar reservas, atualizar o menu e visualizar o feedback dos clientes.
 
 ### 💻 Deploy
