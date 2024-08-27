@@ -156,7 +156,7 @@ const SobreWrapper = styled.section`
     .img-container {
       margin-top: 2rem;
 
-      width: 100%;
+      width: 600px;
       margin-right: -200px;
       img {
         max-height: 700px;

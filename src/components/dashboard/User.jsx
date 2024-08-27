@@ -135,24 +135,10 @@ const UserWrapper = styled.section`
     background-color: var(--secondary-green);
     color: var(--primary-bg-white);
     padding: 0.7rem;
+    margin-top: 2rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-  }
-
-  .btn:hover {
-    background-color: transparent;
-    color: var(--secondary-green);
-    border: 2px solid var(--secondary-green);
-  }
-
-  .btn-link {
-    text-decoration: none;
-    color: var(--primary-bg-white);
-  }
-
-  .btn-link:hover {
-    color: var(--secondary-green);
   }
 
   @media (min-width: 800px) {
@@ -280,30 +266,22 @@ const UserWrapper = styled.section`
         border-radius: 25px;
       }
     }
-
     .btn {
       background-color: var(--secondary-green);
       color: var(--primary-bg-white);
-      margin-top: 2rem;
       padding: 0.9rem;
+      margin-top: 3rem;
       border-radius: 10px;
       align-self: center;
       border: 2px solid var(--secondary-green);
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       transition: all 0.3s ease-in-out;
     }
+
     .btn:hover {
       background-color: transparent;
       color: var(--secondary-green);
       border: 2px solid var(--secondary-green);
-    }
-    .btn-link {
-      text-decoration: none;
-      color: var(--primary-bg-white);
-    }
-
-    .btn-link:hover {
-      color: var(--secondary-green);
     }
   }
 `;
@@ -432,11 +410,9 @@ function User({ reservas }) {
           {getDateFormat(nextThreeDaysDate)}
         </button>
       </div>
-      <button className="btn">
-        <Link to={"/reserva"} className="btn-link">
-          Reservar
-        </Link>
-      </button>
+      <Link to={"/reserva"} className="btn-link">
+        <button className="btn">Reservar</button>
+      </Link>
     </UserWrapper>
   );
 }

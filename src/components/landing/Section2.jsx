@@ -30,7 +30,7 @@ const Section2Wrapper = styled.section`
     color: var(--secondary-green);
     font-size: 1rem;
     border-radius: 25px;
-    margin: 1rem 0;
+    margin: 2rem 0 4rem;
   }
 
   .section2-text {
@@ -65,7 +65,10 @@ const Section2Wrapper = styled.section`
   }
 
   .img-container {
-    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 310px;
     transform: translateX(-200px);
     opacity: 0;
     transition: all 0.7s ease-in-out;
