@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   filterReservasByTime,
@@ -132,10 +132,10 @@ const UserWrapper = styled.section`
   }
 
   .btn {
+    font-size: 1.3rem;
     background-color: var(--secondary-green);
     color: var(--primary-bg-white);
     padding: 0.7rem;
-    margin-top: 2rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -314,6 +314,7 @@ function User({ reservas }) {
     setTablesTaken(getTablesTaken(filterReservasByTime(date, reservas)));
   }
 
+  //TODO: put some loading here asap
   return (
     <UserWrapper>
       <h1 className="title">Confira nossas reservas do momento</h1>

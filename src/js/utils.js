@@ -121,9 +121,9 @@ export async function handleLoginRequests({ request }) {
         credentials: "include",
       },
     );
-    toast.success("Login efetuado com sucesso!");
     console.log(response);
     if (response) {
+      toast.success("Login efetuado com sucesso!");
       Cookies.set("jwt", response.data.token);
       return redirect("/dashboard");
     }

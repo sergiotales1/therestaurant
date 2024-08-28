@@ -93,7 +93,7 @@ function AlertDialogSlide() {
           <Button
             color="success"
             size="medium"
-            variant="outlined"
+            variant="contained"
             onClick={handleCloseOverlay}
           >
             Fechar

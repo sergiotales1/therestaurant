@@ -6,6 +6,8 @@ import { Form, Link, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
 const FormWrapper = styled.div`
+  height: 100vh;
+
   form {
     display: flex;
     flex-direction: column;
@@ -51,17 +53,11 @@ const FormWrapper = styled.div`
   }
 
   .btn-ver-reservas:hover {
-    background-color: var(--secondary-green);
-    color: var(--primary-bg-white);
+    color: lightgray;
   }
 
   .btn:hover {
-    background-color: transparent;
-    color: var(--secondary-green);
-    border: 2px solid var(--secondary-green);
-  }
-
-  div.react-datepicker {
+    color: lightgray;
   }
 
   .react-datepicker__time-container {
@@ -122,12 +118,6 @@ const FormWrapper = styled.div`
       border: 2px solid var(--secondary-green);
       font-size: 1.3rem;
       transition: all 0.3s ease-in-out;
-    }
-
-    .btn:hover {
-      background-color: transparent;
-      color: var(--secondary-green);
-      border: 2px solid var(--secondary-green);
     }
 
     div.react-datepicker {
@@ -218,7 +208,7 @@ function ReservaForm() {
           />
         </label>
         {navigation.state === "submitting" ? (
-          <CircularProgress color="success" />
+          <CircularProgress sx={{ mt: 2 }} color="success" />
         ) : (
           <div className="btn-container">
             <button className="btn" type="submit">

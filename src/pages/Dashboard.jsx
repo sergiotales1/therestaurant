@@ -19,7 +19,8 @@ const DashboardWrapper = styled.section`
 function Dashboard() {
   const navigate = useNavigate();
 
-  const { data } = useQuery(reservasRqParams());
+  const { data, isPending, isLoading } = useQuery(reservasRqParams());
+  console.log(isLoading);
 
   useEffect(() => {
     const token = Cookies.get("jwt");
@@ -28,6 +29,9 @@ function Dashboard() {
       navigate("/");
     }
   }, []);
+  if (isPending) {
+    return <p>loading</p>;
+  }
 
   if (data) {
     const { user, reservas } = data;
