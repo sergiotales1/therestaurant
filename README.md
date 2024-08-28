@@ -31,7 +31,7 @@ Você pode acessar ele agora mesmo pelo link: https://br-restaurant.netlify.app/
    ```bash
    npm install && npm run dev
    
-3. Navegue para o servidor e intale as dependências também, logo em seguida inicie o backend da aplicação (recomendo nodemon para esse caso, mas node serve tambem):
+3. Navegue para o servidor e instale as dependências também, logo em seguida inicie o backend da aplicação (recomendo nodemon para esse caso, mas node serve tambem):
    ```bash
    cd therestaurant\server
    npm install
