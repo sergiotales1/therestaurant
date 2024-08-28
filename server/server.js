@@ -18,8 +18,8 @@ const port = 3000;
 // Accept cors with this config
 // We only need this because of cookies creation / read
 const corsOptions = {
-  // origin: "http://localhost:5173",
-  origin: "https://br-restaurant.netlify.app",
+  origin: "http://localhost:5173",
+  // origin: "https://br-restaurant.netlify.app",
   // origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
@@ -92,7 +92,6 @@ app.post("/dashboard", async (req, res) => {
   // This route grabs the current user and send data, with the admin
   // property which will dictate the view
   let token = req.body.token;
-  //TODO:
   // await cleanReservas();
 
   // Here we receive valid reservas already filtered

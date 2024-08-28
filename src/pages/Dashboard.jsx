@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Admin from "../components/dashboard/Admin";
 import User from "../components/dashboard/User";
+import { useQuery } from "@tanstack/react-query";
+import { reservasRqParams } from "../js/utils";
 
 const DashboardWrapper = styled.section`
   height: auto;
@@ -15,9 +17,10 @@ const DashboardWrapper = styled.section`
 `;
 
 function Dashboard() {
-  const { user, reservas } = useLoaderData();
-
   const navigate = useNavigate();
+
+  const { data } = useQuery(reservasRqParams());
+
   useEffect(() => {
     const token = Cookies.get("jwt");
     // Redirect to home if user don't have the token
@@ -25,19 +28,24 @@ function Dashboard() {
       navigate("/");
     }
   }, []);
-  if (user.isAdmin) {
+
+  if (data) {
+    const { user, reservas } = data;
+
+    if (user.isAdmin) {
+      return (
+        <DashboardWrapper>
+          <Admin />
+        </DashboardWrapper>
+      );
+    }
+
     return (
       <DashboardWrapper>
-        <Admin />
+        <User reservas={reservas} />
       </DashboardWrapper>
     );
   }
-
-  return (
-    <DashboardWrapper>
-      <User reservas={reservas} />
-    </DashboardWrapper>
-  );
 }
 
 export default Dashboard;

@@ -6,12 +6,12 @@ import HomeLayout from "./pages/HomeLayout";
 import Drinks from "./pages/Drinks";
 import Cardapio from "./pages/Cardapio";
 import {
-  fetchDrinks,
-  fetchPlates,
-  handleDashboardRequests,
+  drinksRqParams,
   handleLoginRequests,
   handleReservaRequests,
   handleSignupRequests,
+  mealsRqParams,
+  reservasRqParams,
 } from "./js/utils";
 import Reserva from "./pages/Reserva";
 import Sobre from "./pages/Sobre";
@@ -20,6 +20,10 @@ import Signup from "./pages/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./pages/Dashboard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -34,17 +38,31 @@ const router = createBrowserRouter([
       {
         path: "/drinks",
         element: <Drinks />,
-        loader: fetchDrinks,
+        loader: async () => {
+          // Refetch the data if we don't have it already
+          await queryClient.ensureQueryData(drinksRqParams());
+          return null;
+        },
       },
       {
         path: "/cardapio",
         element: <Cardapio />,
-        loader: fetchPlates,
+        loader: async () => {
+          await queryClient.ensureQueryData(mealsRqParams());
+          return null;
+        },
       },
       {
         path: "/reserva",
         element: <Reserva />,
-        action: handleReservaRequests,
+        action: async ({ request }) => {
+          await handleReservaRequests({ request });
+          await queryClient.invalidateQueries({
+            queryKey: ["reservas", "user"],
+            refetchType: "inactive",
+          });
+          return null;
+        },
       },
       {
         path: "/sobre",
@@ -63,7 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
-        loader: handleDashboardRequests,
+        loader: async () => {
+          await queryClient.ensureQueryData(reservasRqParams());
+          return null;
+        },
       },
     ],
   },
@@ -71,10 +92,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <ToastContainer position="top-center" autoClose={2500} />
       <RouterProvider router={router} />
-    </>
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
   );
 }
 

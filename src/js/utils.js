@@ -5,7 +5,7 @@ import { redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 
 // NOTE: we are fetching only margaritas!
-const cocktailDbURL =
+export const cocktailDbURL =
   "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita";
 
 // NOTE: we are fetching only plates with "v" as starter letter!
@@ -24,18 +24,19 @@ export async function fetchDrinks() {
       axios.get(cocktailDbURL),
       timeoutPromise,
     ]);
+    // return response.data.drinks;
     const drinks = response.data.drinks.map((drink, index) => {
       const { idDrink: id, strDrink: name, strDrinkThumb: img } = drink;
       const { desc, price } = drinksDescPrice[index];
       return { id, name, img, desc, price };
     });
-    return { drinks };
+    return drinks;
   } catch (error) {
     toast.error("Não temos acesso ao menu Drinks no momento...");
     return redirect("/");
   }
 }
-export async function fetchPlates() {
+export async function fetchMeals() {
   //NOTE: Here we are fetching drinks and at the same time formatting
   //everyting!!
   try {
@@ -50,7 +51,7 @@ export async function fetchPlates() {
       const { desc, price } = platesDescPrice[index];
       return { id, name, img, desc, price };
     });
-    return { meals };
+    return meals;
   } catch (error) {
     toast.error("Não temos acesso ao Cardápio no momento...");
     return redirect("/");
@@ -61,8 +62,8 @@ async function fetchReservas() {
   let reservas = [];
   try {
     const response = await axios.get(
-      "https://therestaurantbackend.onrender.com/reservas",
-      // "http://localhost:3000/reservas"
+      // "https://therestaurantbackend.onrender.com/reservas",
+      "http://localhost:3000/reservas",
     );
     if (response.data.reservas) {
       reservas = response.data.reservas;
@@ -94,8 +95,8 @@ export async function handleReservaRequests({ request }) {
   const formattedData = { ...data, date };
   try {
     const response = await axios.post(
-      "https://therestaurantbackend.onrender.com/reservas",
-      // "http://localhost:3000/reservas",
+      // "https://therestaurantbackend.onrender.com/reservas",
+      "http://localhost:3000/reservas",
       formattedData,
     );
     toast.success("Reserva efetuada com sucesso!");
@@ -111,8 +112,8 @@ export async function handleLoginRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
   try {
     const response = await axios.post(
-      "https://therestaurantbackend.onrender.com/login",
-      // "http://localhost:3000/login",
+      // "https://therestaurantbackend.onrender.com/login",
+      "http://localhost:3000/login",
 
       data,
       {
@@ -124,7 +125,7 @@ export async function handleLoginRequests({ request }) {
     console.log(response);
     if (response) {
       Cookies.set("jwt", response.data.token);
-      return redirect("/");
+      return redirect("/dashboard");
     }
   } catch (error) {
     console.log(error);
@@ -171,9 +172,9 @@ export async function handleDashboardRequests() {
   if (token) {
     try {
       const response = await axios.post(
-        // "http://localhost:3000/dashboard",
+        "http://localhost:3000/dashboard",
 
-        "https://therestaurantbackend.onrender.com/dashboard",
+        // "https://therestaurantbackend.onrender.com/dashboard",
         {
           token,
         },
@@ -188,6 +189,7 @@ export async function handleDashboardRequests() {
       if (response.data.reservas) {
         reservas = response.data.reservas;
       }
+      return { user, reservas };
     } catch (error) {
       console.log(error);
       toast.error(error.response);
@@ -195,7 +197,7 @@ export async function handleDashboardRequests() {
   } else {
     toast.error("No token found into cookies");
   }
-  return { user, reservas };
+  return null;
 }
 
 export function handleLogout() {
@@ -313,4 +315,25 @@ export function filterReservasByTime(date, reservas) {
   });
 
   return validReservas;
+}
+
+export function drinksRqParams() {
+  return {
+    queryKey: ["drinks"],
+    queryFn: fetchDrinks,
+  };
+}
+
+export function mealsRqParams() {
+  return {
+    queryKey: ["meals"],
+    queryFn: fetchMeals,
+  };
+}
+
+export function reservasRqParams() {
+  return {
+    queryKey: ["reservas", "user"],
+    queryFn: handleDashboardRequests,
+  };
 }

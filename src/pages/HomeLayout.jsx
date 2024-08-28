@@ -90,6 +90,14 @@ function AlertDialogSlide() {
           >
             Reiniciar
           </Button>
+          <Button
+            color="success"
+            size="medium"
+            variant="outlined"
+            onClick={handleCloseOverlay}
+          >
+            Fechar
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

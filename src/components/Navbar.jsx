@@ -275,7 +275,7 @@ function Navbar() {
     if (
       e.target.classList.contains("logged-link-icon") ||
       e.target.classList.contains("navbar-logged-btn") ||
-      e.target.parentElement.classList.contains("logged-link-icon")
+      e.target?.parentElement?.classList.contains("logged-link-icon")
     ) {
       return;
     }

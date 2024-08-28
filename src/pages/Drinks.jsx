@@ -1,9 +1,10 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import SingleDrink from "../components/drinks/SingleDrink";
 import DrinksCarousel from "../components/drinks/drinks-slider.jsx";
 import heroBg from "../assets/hero-assets/hero-bg.png";
+import { useQuery } from "@tanstack/react-query";
+import { drinksRqParams } from "../js/utils";
 
 const DrinksWrapper = styled.section`
   width: 100vw;
@@ -121,25 +122,28 @@ const DrinksWrapper = styled.section`
 `;
 
 function Drinks() {
-  const { drinks } = useLoaderData();
-  return (
-    <>
-      <DrinksWrapper>
-        <div className="title-container">
-          <h1 className="title">Drinks</h1>
-          <h2 className="subtitle">Se beber não dirija!</h2>
-        </div>
-        <div className="drinks-container">
-          {drinks.map((drink) => {
-            return <SingleDrink drink={drink} key={drink.id} />;
-          })}
-        </div>
-      </DrinksWrapper>
-      <section className="drinks-carousel">
-        <DrinksCarousel drinks={drinks} />
-      </section>
-    </>
-  );
+  // const { drinks } = useLoaderData();
+  const { data: drinks } = useQuery(drinksRqParams());
+  if (drinks) {
+    return (
+      <>
+        <DrinksWrapper>
+          <div className="title-container">
+            <h1 className="title">Drinks</h1>
+            <h2 className="subtitle">Se beber não dirija!</h2>
+          </div>
+          <div className="drinks-container">
+            {drinks.map((drink) => {
+              return <SingleDrink drink={drink} key={drink.id} />;
+            })}
+          </div>
+        </DrinksWrapper>
+        <section className="drinks-carousel">
+          <DrinksCarousel drinks={drinks} />
+        </section>
+      </>
+    );
+  }
 }
 
 export default Drinks;

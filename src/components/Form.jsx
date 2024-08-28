@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ReactDatePicker } from "../customHooks.jsx";
+import React, { useRef, useState } from "react";
+import { CheckIsLogged, ReactDatePicker } from "../customHooks.jsx";
 
 import styled from "styled-components";
-import { Form, useNavigation } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
 const FormWrapper = styled.div`
@@ -24,6 +24,11 @@ const FormWrapper = styled.div`
     width: 100%;
     padding: 0.4rem;
   }
+
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+  }
   .btn {
     background-color: var(--secondary-green);
     color: var(--primary-bg-white);
@@ -33,6 +38,23 @@ const FormWrapper = styled.div`
     border: none;
     cursor: pointer;
   }
+
+  .btn-ver-reservas {
+    padding: 0.7rem;
+    margin-top: 2rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--secondary-green);
+    border: 2px solid var(--secondary-green);
+  }
+
+  .btn-ver-reservas:hover {
+    background-color: var(--secondary-green);
+    color: var(--primary-bg-white);
+  }
+
   .btn:hover {
     background-color: transparent;
     color: var(--secondary-green);
@@ -74,6 +96,12 @@ const FormWrapper = styled.div`
       width: 400px;
     }
 
+    .btn-container {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+    }
+
     .btn {
       background-color: var(--secondary-green);
       color: var(--primary-bg-white);
@@ -85,6 +113,17 @@ const FormWrapper = styled.div`
       font-size: 1.3rem;
       transition: all 0.3s ease-in-out;
     }
+
+    .btn-ver-reservas {
+      margin-top: 2rem;
+      padding: 0.9rem;
+      border-radius: 10px;
+      align-self: center;
+      border: 2px solid var(--secondary-green);
+      font-size: 1.3rem;
+      transition: all 0.3s ease-in-out;
+    }
+
     .btn:hover {
       background-color: transparent;
       color: var(--secondary-green);
@@ -111,6 +150,8 @@ function ReservaForm() {
   const emailRef = useRef(null);
   const telRef = useRef(null);
   const bdayMonthRef = useRef(null);
+
+  const { isLoggedIn } = CheckIsLogged();
 
   const handleDataChange = (date) => {
     setStartDate(date);
@@ -179,9 +220,16 @@ function ReservaForm() {
         {navigation.state === "submitting" ? (
           <CircularProgress color="success" />
         ) : (
-          <button className="btn" type="submit">
-            Reservar
-          </button>
+          <div className="btn-container">
+            <button className="btn" type="submit">
+              Reservar
+            </button>
+            <Link to={isLoggedIn ? "/dashboard" : "/login"}>
+              <button className=" btn-ver-reservas" type="submit">
+                Ver reservas
+              </button>
+            </Link>
+          </div>
         )}
       </Form>
     </FormWrapper>

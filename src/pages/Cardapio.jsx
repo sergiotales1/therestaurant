@@ -1,9 +1,10 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import SinglePlate from "../components/cardapio/SinglePlate";
 import CardapioCarousel from "../components/cardapio/cardapio-slider.jsx";
 import heroBg from "../assets/hero-assets/hero-bg.png";
+import { useQuery } from "@tanstack/react-query";
+import { mealsRqParams } from "../js/utils";
 
 const CardapioWrapper = styled.section`
   width: 100vw;
@@ -121,24 +122,27 @@ const CardapioWrapper = styled.section`
 `;
 
 function Cardapio() {
-  const { meals } = useLoaderData();
-  return (
-    <>
-      <CardapioWrapper>
-        <div className="title-container">
-          <h1 className="title">Cardápio</h1>
-        </div>
-        <div className="plates-container">
-          {meals.map((meal) => {
-            return <SinglePlate meal={meal} key={meal.id} />;
-          })}
-        </div>
-      </CardapioWrapper>
-      <section className="drinks-carousel">
-        <CardapioCarousel meals={meals} />
-      </section>
-    </>
-  );
+  const { data: meals } = useQuery(mealsRqParams());
+
+  if (meals) {
+    return (
+      <>
+        <CardapioWrapper>
+          <div className="title-container">
+            <h1 className="title">Cardápio</h1>
+          </div>
+          <div className="plates-container">
+            {meals.map((meal) => {
+              return <SinglePlate meal={meal} key={meal.id} />;
+            })}
+          </div>
+        </CardapioWrapper>
+        <section className="drinks-carousel">
+          <CardapioCarousel meals={meals} />
+        </section>
+      </>
+    );
+  }
 }
 
 export default Cardapio;

@@ -305,7 +305,6 @@ function User({ reservas }) {
   const [validReservas, setValidReservas] = useState(initialValidReservas);
   const [tablesTaken, setTablesTaken] = useState(InitialTablesTaken);
 
-  console.log(date);
   function handleClick(e) {
     const date = new Date(e.target.dataset.date);
     setDate(date);
