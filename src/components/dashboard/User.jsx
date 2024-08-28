@@ -315,6 +315,9 @@ function User({ reservas }) {
   }
 
   //TODO: put some loading here asap
+  if (!reservas) {
+    return <p>loading</p>;
+  }
   return (
     <UserWrapper>
       <h1 className="title">Confira nossas reservas do momento</h1>

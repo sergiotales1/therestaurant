@@ -29,7 +29,7 @@ function Dashboard() {
       navigate("/");
     }
   }, []);
-  if (isPending) {
+  if (!data) {
     return <p>loading</p>;
   }
 
