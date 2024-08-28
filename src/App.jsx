@@ -95,7 +95,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ToastContainer position="top-center" autoClose={2500} />
       <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
