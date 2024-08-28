@@ -61,7 +61,6 @@ const router = createBrowserRouter([
             queryKey: ["reservas", "user"],
             refetchType: "inactive",
           });
-          toast.success("Reserva efetuada com sucesso!");
           return null;
         },
       },

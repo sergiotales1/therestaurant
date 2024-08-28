@@ -98,6 +98,7 @@ export async function handleReservaRequests({ request }) {
       // "http://localhost:3000/reservas",
       formattedData,
     );
+    toast.success("Reserva efetuada com sucesso!");
     console.log(response);
   } catch (error) {
     console.log(error);
