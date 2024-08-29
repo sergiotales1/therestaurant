@@ -77,6 +77,7 @@ const SobreWrapper = styled.section`
   }
 
   .img-container {
+    height: 380px;
     width: 300px;
     transform: translateX(-200px);
     opacity: 0;
@@ -158,9 +159,10 @@ const SobreWrapper = styled.section`
 
       width: 600px;
       margin-right: -200px;
+      height: 700px;
       img {
-        max-height: 700px;
         width: 100%;
+        max-height: 700px;
       }
     }
 
