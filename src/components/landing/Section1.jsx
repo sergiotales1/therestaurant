@@ -4,6 +4,13 @@ import sec1Img from "../../assets/landing-rsc/section1-img.png";
 import utensils from "../../assets/landing-rsc/section1-utensils.png";
 import clock from "../../assets/landing-rsc/section1-clock.png";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  increasePlates,
+  increaseYears,
+  setIconsContainerInView,
+  setIsInView,
+} from "../../features/firstSection/firstSectionSlice";
 
 const Section1Wrapper = styled.section`
   width: 100vw;
@@ -249,10 +256,15 @@ const Section1Wrapper = styled.section`
 `;
 
 function Section1() {
-  const [plates, setPlates] = useState(0);
-  const [years, setYears] = useState(0);
-  const [inView, setInView] = useState(false);
-  const [imgInView, setImgInView] = useState(false);
+  const { imgInView, iconsContainerInView, plates, years } = useSelector(
+    (store) => store.firstSection,
+  );
+  const dispatch = useDispatch();
+
+  // const [plates, setPlates] = useState(0);
+  // const [years, setYears] = useState(0);
+  // const [inView, setInView] = useState(false);
+  // const [imgInView, setImgInView] = useState(false);
   const numberRef = useRef(null);
   const imgRef = useRef(null);
   const spanRef = useRef(null);
@@ -262,7 +274,7 @@ function Section1() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true);
+          dispatch(setIconsContainerInView());
         }
       },
       { threshold: 0.1 }, // Adjust the threshold as needed
@@ -270,7 +282,8 @@ function Section1() {
 
     function myIntersectionCb([entry]) {
       if (entry.isIntersecting) {
-        setImgInView(true);
+        // setImgInView(true);
+        dispatch(setIsInView());
       }
     }
 
@@ -302,24 +315,29 @@ function Section1() {
   }, [imgInView]);
 
   useEffect(() => {
-    if (inView && plates < 20) {
+    if (iconsContainerInView && plates < 20) {
       const timer = setTimeout(() => {
-        setPlates((prevNumber) => prevNumber + 1);
+        // setPlates((prevNumber) => prevNumber + 1);
+        dispatch(increasePlates());
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [inView, plates]);
+  }, [iconsContainerInView, plates]);
+
   useEffect(() => {
-    if (inView && years < 1979) {
+    if (iconsContainerInView && years < 1979) {
       const timer = setTimeout(() => {
-        setYears((prevNumber) => {
-          if (prevNumber === 1950) return prevNumber + 29;
-          return prevNumber + 30;
-        });
+        dispatch(increaseYears());
+        // setYears((prevNumber) => {
+        //
+        //   if (prevNumber === 1950) return prevNumber + 29;
+        //   return prevNumber + 30;
+        // });
       }, 40);
       return () => clearTimeout(timer);
     }
-  }, [inView, years]);
+  }, [iconsContainerInView, years]);
+
   return (
     <Section1Wrapper>
       <h3 className="subtitle">Venha Conhecer</h3>
@@ -337,10 +355,10 @@ function Section1() {
             autênticos e inesquecíveis que trazem à tona memórias e emoções.
           </p>
 
-          <div className="icons-section">
+          <div className="icons-section" ref={numberRef}>
             <div className="pratos-number">
               <img src={utensils} alt="utensils icon" />
-              <p ref={numberRef}>{plates}</p>
+              <p>{plates}</p>
               <p>pratos</p>
             </div>
             <div className="desde-number">

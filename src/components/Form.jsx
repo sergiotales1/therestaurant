@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import { CheckIsLogged, ReactDatePicker } from "../customHooks.jsx";
+import { ReactDatePicker } from "../customHooks.jsx";
 
 import styled from "styled-components";
 import { Form, Link, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const FormWrapper = styled.div`
   height: 100vh;
@@ -135,13 +136,14 @@ const FormWrapper = styled.div`
 
 function ReservaForm() {
   const navigation = useNavigation();
+
   const [startDate, setStartDate] = useState(new Date());
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const telRef = useRef(null);
   const bdayMonthRef = useRef(null);
 
-  const { isLoggedIn } = CheckIsLogged();
+  const { isLoggedIn } = useSelector((store) => store.navbar);
 
   const handleDataChange = (date) => {
     setStartDate(date);

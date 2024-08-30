@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Cookies from "js-cookie";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RiDrinks2Line } from "react-icons/ri";
 import { FaUtensils } from "react-icons/fa";
@@ -6,16 +7,16 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { links } from "../js/data";
 import styled from "styled-components";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { Link, useLocation, useNavigation } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { CheckIsLogged } from "../customHooks";
 import { handleLogout } from "../js/utils";
-import { CircularProgress, Stack } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setShowLinks,
+  toggleIsLoggedIn,
+  toggleShowLinks,
+} from "../features/navbar/navbarSlice";
 
 const Wrapper = styled.section`
   /* 
@@ -252,17 +253,26 @@ const Submenu = styled.div`
 `;
 
 function Navbar() {
+  const { showLinks, showLoggedLinks, isLoggedIn } = useSelector(
+    (store) => store.navbar,
+  );
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const submenuRef = useRef(null);
 
-  const [showLinks, setShowLinks] = useState(false);
-  const [showLoggedLinks, setShowLoggedLinks] = useState(false);
-  const { isLoggedIn } = CheckIsLogged();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    setShowLinks(false);
-    setShowLoggedLinks(false);
+    const token = Cookies.get("jwt");
+    if (token) {
+      dispatch(toggleIsLoggedIn({ changeTo: true }));
+    } else {
+      dispatch(toggleIsLoggedIn({ changeTo: false }));
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    dispatch(setShowLinks({ type: "both" }));
   }, [pathname]);
 
   useEffect(() => {
@@ -279,7 +289,7 @@ function Navbar() {
     ) {
       return;
     }
-    setShowLoggedLinks(false);
+    dispatch(setShowLinks({ type: "close-logged-links" }));
     document.body.removeEventListener("click", handleBodyClickLogged);
   };
 
@@ -319,7 +329,7 @@ function Navbar() {
   const btnRef = useRef(null);
 
   const toggleLinks = () => {
-    setShowLinks(!showLinks);
+    dispatch(toggleShowLinks());
   };
 
   const linkStyles = {
@@ -395,7 +405,9 @@ function Navbar() {
             <>
               <button
                 type="button"
-                onClick={() => setShowLoggedLinks(!showLoggedLinks)}
+                onClick={() =>
+                  dispatch(setShowLinks({ type: "show-logged-links" }))
+                }
                 className="navbar-logged-btn"
                 ref={btnRef}
               >

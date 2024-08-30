@@ -4,6 +4,8 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import lasanha from "../../assets/landing-rsc/lasanha.png";
 import peixe from "../../assets/landing-rsc/peixe.png";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsInView } from "../../features/secondSection/secondSectionSlice";
 
 const Section2Wrapper = styled.section`
   width: 100vw;
@@ -204,8 +206,12 @@ const Section2Wrapper = styled.section`
 `;
 
 function Section2() {
-  const [content1InView, setContent1InView] = useState(false);
-  const [content2InView, setContent2InView] = useState(false);
+  const { content1InView, content2InView } = useSelector(
+    (store) => store.secondSection,
+  );
+  const dispatch = useDispatch();
+  // const [content1InView, setContent1InView] = useState(false);
+  // const [content2InView, setContent2InView] = useState(false);
   const content1ImgRef = useRef(null);
   const content2ImgRef = useRef(null);
   const content1TextRef = useRef(null);
@@ -214,7 +220,8 @@ function Section2() {
   useEffect(() => {
     function myIntersectionCb1([entry]) {
       if (entry.isIntersecting) {
-        setContent1InView(true);
+        dispatch(setIsInView({ content: 1 }));
+        // setContent1InView(true);
       }
     }
 
@@ -231,7 +238,8 @@ function Section2() {
 
     function myIntersectionCb2([entry]) {
       if (entry.isIntersecting) {
-        setContent2InView(true);
+        dispatch(setIsInView({ content: 2 }));
+        // setContent2InView(true);
       }
     }
 

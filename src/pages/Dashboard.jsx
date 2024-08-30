@@ -20,7 +20,6 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const { data, isPending, isLoading } = useQuery(reservasRqParams());
-  console.log(isLoading);
 
   useEffect(() => {
     const token = Cookies.get("jwt");

@@ -96,6 +96,7 @@ const SignupWrapper = styled.section`
     justify-content: center;
     background-color: transparent;
     border: none;
+    cursor: pointer;
   }
 
   @media (min-width: 800px) {

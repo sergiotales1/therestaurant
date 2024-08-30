@@ -3,11 +3,10 @@ import { Outlet, useNavigation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ScrollToTop from "../customHooks";
 import { AlertDialogSlide } from "../components/AlertDialogSlide";
-import { CircularProgress, Stack } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 function HomeLayout() {
   const { state } = useNavigation();
-  console.log(state);
 
   return (
     <>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import mainImg from "../assets/sobre-rsc/main-img.png";
 import miniImg from "../assets/sobre-rsc/mini-restaurant.png";
 import groupImg from "../assets/sobre-rsc/image-group.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsInView } from "../features/sobre/sobreSlice";
 
 const SobreWrapper = styled.section`
   padding: 8rem 2vw 3rem 2vw;
@@ -214,8 +216,13 @@ const SobreWrapper = styled.section`
 `;
 
 function Sobre() {
-  const [content1InView, setContent1InView] = useState(false);
-  const [content2InView, setContent2InView] = useState(false);
+  const { content1InView, content2InView } = useSelector(
+    (store) => store.sobre,
+  );
+  const dispatch = useDispatch();
+
+  // const [content1InView, setContent1InView] = useState(false);
+  // const [content2InView, setContent2InView] = useState(false);
   const content1ImgRef = useRef(null);
   const content1TextRef = useRef(null);
   const content2ImgRef = useRef(null);
@@ -225,7 +232,8 @@ function Sobre() {
   useEffect(() => {
     function myIntersectionCb1([entry]) {
       if (entry.isIntersecting) {
-        setContent1InView(true);
+        // setContent1InView(true);
+        dispatch(setIsInView({ content: 1 }));
       }
     }
 
@@ -241,7 +249,8 @@ function Sobre() {
     }
     function myIntersectionCb2([entry]) {
       if (entry.isIntersecting) {
-        setContent2InView(true);
+        // setContent2InView(true);
+        dispatch(setIsInView({ content: 2 }));
       }
     }
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DatePicker from "react-datepicker";
-import Cookies from "js-cookie";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function ScrollToTop() {
@@ -13,22 +12,6 @@ export default function ScrollToTop() {
   }, [pathname]);
 
   return null;
-}
-export function CheckIsLogged() {
-  // Used into navbar!
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    const token = Cookies.get("jwt");
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [pathname]);
-
-  return { isLoggedIn };
 }
 
 export const ReactDatePicker = ({ startDate, onDateChange }) => {
