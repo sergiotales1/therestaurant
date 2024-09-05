@@ -82,3 +82,6 @@ export const platesDescPrice = [
 ];
 
 export const tables = [1, 2, 3, 4, 5, 6, 7, 8];
+
+export const serverDeployUrl = "https://therestaurantbackend.onrender.com";
+export const serverLocalUrl = "http://localhost:3000";

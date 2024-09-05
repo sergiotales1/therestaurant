@@ -1,5 +1,10 @@
 import axios from "axios";
-import { drinksDescPrice, platesDescPrice } from "./data";
+import {
+  drinksDescPrice,
+  platesDescPrice,
+  serverDeployUrl,
+  serverLocalUrl,
+} from "./data";
 import { toast } from "react-toastify";
 import { redirect } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -62,8 +67,8 @@ async function fetchReservas() {
   let reservas = [];
   try {
     const response = await axios.get(
-      "https://therestaurantbackend.onrender.com/reservas",
-      // "http://localhost:3000/reservas",
+      serverDeployUrl + "/reservas",
+      // serverLocalUrl + "/reservas",
     );
     if (response.data.reservas) {
       reservas = response.data.reservas;
@@ -94,8 +99,8 @@ export async function handleReservaRequests({ request }) {
   const formattedData = { ...data, date };
   try {
     const response = await axios.post(
-      "https://therestaurantbackend.onrender.com/reservas",
-      // "http://localhost:3000/reservas",
+      serverDeployUrl + "/reservas",
+      // serverLocalUrl + "/reservas",
       formattedData,
     );
     toast.success("Reserva efetuada com sucesso!");
@@ -109,27 +114,28 @@ export async function handleReservaRequests({ request }) {
 
 export async function handleLoginRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
+  console.log(data);
   try {
     const response = await axios.post(
-      "https://therestaurantbackend.onrender.com/login",
-      // "http://localhost:3000/login",
+      serverDeployUrl + "/login",
+      // serverLocalUrl + "/login",
 
       data,
       {
-        withCredentials: true,
+        withcredentials: true,
         credentials: "include",
       },
     );
     console.log(response);
     if (response) {
-      toast.success("Login efetuado com sucesso!");
-      Cookies.set("jwt", response.data.token);
+      toast.success("login efetuado com sucesso!");
+      cookies.set("jwt", response.data.token);
       return redirect("/dashboard");
     }
   } catch (error) {
     console.log(error);
-    if (error.code === "ERR_NETWORK") {
-      toast.error("Não foi possível conectar-se com o servidor!");
+    if (error.code === "err_network") {
+      toast.error("não foi possível conectar-se com o servidor!");
     } else {
       toast.error(error.response.data);
     }
@@ -142,9 +148,8 @@ export async function handleSignupRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
   try {
     const response = await axios.post(
-      // "http://localhost:3000/signup",
-
-      "https://therestaurantbackend.onrender.com/signup",
+      serverDeployUrl + "/signup",
+      // serverLocalUrl + "/signup",
       data,
       {
         withCredentials: true,
@@ -171,9 +176,8 @@ export async function handleDashboardRequests() {
   if (token) {
     try {
       const response = await axios.post(
-        // "http://localhost:3000/dashboard",
-
-        "https://therestaurantbackend.onrender.com/dashboard",
+        serverDeployUrl + "/dashboard",
+        // serverLocalUrl + "/dashboard",
         {
           token,
         },
@@ -335,4 +339,37 @@ export function reservasRqParams() {
     queryKey: ["reservas", "user"],
     queryFn: handleDashboardRequests,
   };
+}
+
+export async function entrarComoVisitante() {
+  let data = {
+    email: "john@gmail.com",
+    password: "123123",
+  };
+
+  try {
+    const response = await axios.post(
+      serverDeployUrl + "/login",
+      // serverLocalUrl + "/login",
+
+      data,
+      {
+        withCredentials: true,
+        credentials: "include",
+      },
+    );
+    if (response) {
+      toast.success("Bem vindo usuario visitante!");
+      Cookies.set("jwt", response.data.token);
+    }
+  } catch (error) {
+    console.log(error);
+    if (error.code === "ERR_NETWORK") {
+      toast.error("Não foi possível conectar-se com o servidor!");
+    } else {
+      toast.error(error.response.data);
+    }
+    return null;
+  }
+  return null;
 }

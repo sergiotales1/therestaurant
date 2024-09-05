@@ -191,28 +191,15 @@ function Signup() {
         <Form action="/signup" method="POST">
           <div className="input-container">
             <IoMail />
-            <input
-              required
-              type="text"
-              defaultValue={"john@gmail.com"}
-              name="email"
-              placeholder="Email "
-            />
+            <input required type="text" name="email" placeholder="Email " />
           </div>
           <div className="input-container">
             <FaUser />
-            <input
-              required
-              type="text"
-              defaultValue={"John Doe"}
-              name="name"
-              placeholder="Nome"
-            />
+            <input required type="text" name="name" placeholder="Nome" />
           </div>
           <div className="input-container">
             <FaBirthdayCake />
             <input
-              defaultValue={"December"}
               required
               type="text"
               name="bdayMonth"
@@ -222,7 +209,6 @@ function Signup() {
           <div className="input-container">
             <RiLockPasswordFill />
             <input
-              defaultValue={123123}
               type={passwordShow ? "text" : "password"}
               required
               minLength="6"

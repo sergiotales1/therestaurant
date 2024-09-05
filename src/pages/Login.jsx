@@ -7,8 +7,9 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
 import logo from "../assets/black-logo.png";
-import { Form, Link, useNavigation } from "react-router-dom";
+import { Form, Link, useNavigate, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import { entrarComoVisitante } from "../js/utils";
 
 const LoginWrapper = styled.section`
   padding: 8rem 0;
@@ -53,6 +54,16 @@ const LoginWrapper = styled.section`
       color: darkgray;
     }
   }
+
+  .btn-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
   .btn {
     background-color: var(--secondary-green);
     color: var(--primary-bg-white);
@@ -178,6 +189,7 @@ const LoginWrapper = styled.section`
 
 function Login() {
   const navigation = useNavigation();
+  const navigate = useNavigate();
 
   const [passwordShow, setPasswordShow] = useState(false);
 
@@ -191,18 +203,11 @@ function Login() {
         <Form action="/login" method="post">
           <div className="input-container">
             <IoMail />
-            <input
-              required
-              defaultValue={"john@gmail.com"}
-              type="email"
-              name="email"
-              placeholder="Email "
-            />
+            <input required type="email" name="email" placeholder="Email " />
           </div>
           <div className="input-container">
             <RiLockPasswordFill />
             <input
-              defaultValue={123123}
               required
               minLength={6}
               type={passwordShow ? "text" : "password"}
@@ -220,9 +225,21 @@ function Login() {
           {navigation.state === "submitting" ? (
             <CircularProgress color="success" />
           ) : (
-            <button className="btn" type="submit">
-              Entrar
-            </button>
+            <div className="btn-container">
+              <button
+                className="btn"
+                onClick={async () => {
+                  await entrarComoVisitante();
+                  navigate("/dashboard");
+                }}
+                type="button"
+              >
+                Entrar como visitante
+              </button>
+              <button className="btn" type="submit">
+                Entrar
+              </button>
+            </div>
           )}
         </Form>
         <div className="under-form-text">
