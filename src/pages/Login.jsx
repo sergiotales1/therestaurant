@@ -190,8 +190,10 @@ const LoginWrapper = styled.section`
 function Login() {
   const navigation = useNavigation();
   const navigate = useNavigate();
+  console.log(navigation);
 
   const [passwordShow, setPasswordShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handlePwVisibility = () => {
     setPasswordShow(!passwordShow);
@@ -222,14 +224,17 @@ function Login() {
               {passwordShow ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
-          {navigation.state === "submitting" ? (
+          {navigation.state === "submitting" || loading ? (
             <CircularProgress color="success" />
           ) : (
             <div className="btn-container">
               <button
                 className="btn"
                 onClick={async () => {
+                  setLoading(true);
+
                   await entrarComoVisitante();
+                  setLoading(false);
                   navigate("/dashboard");
                 }}
                 type="button"

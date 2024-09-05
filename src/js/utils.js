@@ -129,7 +129,7 @@ export async function handleLoginRequests({ request }) {
     console.log(response);
     if (response) {
       toast.success("login efetuado com sucesso!");
-      cookies.set("jwt", response.data.token);
+      Cookies.set("jwt", response.data.token);
       return redirect("/dashboard");
     }
   } catch (error) {
