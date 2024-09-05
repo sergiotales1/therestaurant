@@ -6,7 +6,6 @@ import Admin from "../components/dashboard/Admin";
 import User from "../components/dashboard/User";
 import { useQuery } from "@tanstack/react-query";
 import { reservasRqParams } from "../js/utils";
-import ErrorPage from "../components/ErrorPage";
 
 const DashboardWrapper = styled.section`
   height: auto;
