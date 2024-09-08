@@ -83,6 +83,7 @@ const ReservaWrapper = styled.section`
     }
 
     .images-container {
+      margin-top: -5.5rem;
       display: grid;
       grid-template-columns: 200px 1fr;
       grid-template-rows: 300px 300px;

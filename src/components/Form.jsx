@@ -156,7 +156,7 @@ function ReservaForm() {
           Nome:
           <input
             ref={nameRef}
-            defaultValue={"john doe"}
+            // defaultValue={"john doe"}
             required
             type="text"
             name="name"
@@ -166,7 +166,7 @@ function ReservaForm() {
           Número de celular (opcional):
           <input
             ref={telRef}
-            defaultValue={"99999-9999"}
+            // defaultValue={"99999-9999"}
             type="text"
             name="tel"
           />
@@ -175,7 +175,7 @@ function ReservaForm() {
           Email:
           <input
             ref={emailRef}
-            defaultValue={"john@mail.com"}
+            // defaultValue={"john@mail.com"}
             required
             type="email"
             name="email"
@@ -185,7 +185,7 @@ function ReservaForm() {
           Mês de aniversário (opcional):
           <input
             ref={bdayMonthRef}
-            defaultValue={"December"}
+            // defaultValue={"December"}
             type="text"
             name="bday"
           />
