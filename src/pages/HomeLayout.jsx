@@ -7,6 +7,9 @@ import { CircularProgress } from "@mui/material";
 
 function HomeLayout() {
   const { state } = useNavigation();
+  if (state === "loading") {
+    document.body.scrollTo(0, 0);
+  }
 
   return (
     <>

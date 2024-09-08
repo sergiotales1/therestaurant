@@ -13,6 +13,7 @@ import { Form, Link, useNavigation } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
 const SignupWrapper = styled.section`
+  height: 100vh;
   padding: 8rem 0;
   display: flex;
   flex-direction: column;

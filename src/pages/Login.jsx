@@ -12,6 +12,8 @@ import { CircularProgress } from "@mui/material";
 import { entrarComoVisitante } from "../js/utils";
 
 const LoginWrapper = styled.section`
+  height: 100vh;
+
   padding: 8rem 0;
   display: flex;
   flex-direction: column;
