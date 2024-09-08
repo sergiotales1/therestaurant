@@ -6,6 +6,7 @@ import Admin from "../components/dashboard/Admin";
 import User from "../components/dashboard/User";
 import { useQuery } from "@tanstack/react-query";
 import { reservasRqParams } from "../js/utils";
+import Error from "../components/Error";
 
 const DashboardWrapper = styled.section`
   height: auto;
@@ -28,28 +29,22 @@ function Dashboard() {
       navigate("/");
     }
   }, []);
-  if (!data) {
-    //TODO: no data...
-    return <p>loading</p>;
-  }
 
-  if (data) {
-    const { user, reservas } = data;
+  const { user, reservas } = data;
 
-    if (user.isAdmin) {
-      return (
-        <DashboardWrapper>
-          <Admin />
-        </DashboardWrapper>
-      );
-    }
-
+  if (user.isAdmin) {
     return (
       <DashboardWrapper>
-        <User reservas={reservas} />
+        <Admin />
       </DashboardWrapper>
     );
   }
+
+  return (
+    <DashboardWrapper>
+      <User reservas={reservas} />
+    </DashboardWrapper>
+  );
 }
 
 export default Dashboard;

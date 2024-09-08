@@ -192,7 +192,6 @@ const LoginWrapper = styled.section`
 function Login() {
   const navigation = useNavigation();
   const navigate = useNavigate();
-  console.log(navigation);
 
   const [passwordShow, setPasswordShow] = useState(false);
   const [loading, setLoading] = useState(false);

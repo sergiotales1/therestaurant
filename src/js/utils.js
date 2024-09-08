@@ -114,7 +114,6 @@ export async function handleReservaRequests({ request }) {
 
 export async function handleLoginRequests({ request }) {
   let data = Object.fromEntries(await request.formData());
-  console.log(data);
   try {
     const response = await axios.post(
       serverDeployUrl + "/login",
@@ -274,7 +273,7 @@ export function getDashboardDates({ reservas, date }) {
 export function getDateFormat(date) {
   const today = new Date();
   const day = date.getDate();
-  const zeroedDay = day > 10 ? day : `0${day}`;
+  const zeroedDay = day >= 10 ? day : `0${day}`;
   const month = date.getMonth() + 1; // 0 is january
   const zeroedMonth = month > 10 ? month : `0${month}`;
   const hour = date.getHours();

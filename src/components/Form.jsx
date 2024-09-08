@@ -125,6 +125,7 @@ const FormWrapper = styled.div`
     }
 
     .react-datepicker__time-container {
+      font-size: 1rem;
       width: 85px;
     }
 

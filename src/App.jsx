@@ -22,8 +22,7 @@ import { ToastContainer } from "react-toastify";
 import Dashboard from "./pages/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useEffect } from "react";
-import axios from "axios";
+import Error from "./components/Error";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +30,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
