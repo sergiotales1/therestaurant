@@ -18,7 +18,7 @@ async function addNewReserva(reservaData) {
     // console.log(reservas);
 
     //NOTE: To clean db:
-    // await Reserva.deleteMany({ name: "john doe" });
+    // await Reserva.deleteMany({});
     // Close connection
     disconnectFromDb();
   } catch (error) {
